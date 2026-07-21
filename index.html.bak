@@ -1,0 +1,954 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sanjana Fernando — Software Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <script
+      type="module"
+      src="https://unpkg.com/@splinetool/viewer/build/spline-viewer.js"
+    ></script>
+    <style>
+      :root {
+        --ink: #090b14;
+        --panel: #10142a;
+        --panel-line: rgba(124, 92, 252, 0.22);
+        --violet: #7c5cfc;
+        --violet-glow: rgba(124, 92, 252, 0.45);
+        --cyan: #35e6c4;
+        --cyan-glow: rgba(53, 230, 196, 0.35);
+        --text: #e7eaf6;
+        --muted: #8891aa;
+        --dim: #5a6178;
+        --display: "Space Grotesk", sans-serif;
+        --mono: "JetBrains Mono", monospace;
+        --body: "Inter", sans-serif;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background: var(--ink);
+        color: var(--text);
+        font-family: var(--body);
+        overflow-x: hidden;
+        position: relative;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        background-image:
+          linear-gradient(rgba(124, 92, 252, 0.04) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(124, 92, 252, 0.04) 1px, transparent 1px);
+        background-size: 48px 48px;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      /* ---------- FULL-PAGE SPLINE BACKGROUND ---------- */
+      .bg-spline {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        overflow: hidden;
+      }
+      .bg-spline spline-viewer {
+        width: 100%;
+        height: 100%;
+      }
+      .bg-overlay {
+        position: fixed;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        background:
+          radial-gradient(
+            circle at 50% 35%,
+            rgba(9, 11, 20, 0),
+            rgba(9, 11, 20, 0.25) 75%
+          ),
+          linear-gradient(
+            180deg,
+            rgba(9, 11, 20, 0.35) 0%,
+            rgba(9, 11, 20, 0.05) 18%,
+            rgba(9, 11, 20, 0.05) 82%,
+            rgba(9, 11, 20, 0.55) 100%
+          );
+      }
+
+      ::selection {
+        background: var(--violet);
+        color: var(--ink);
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      :focus-visible {
+        outline: 2px solid var(--cyan);
+        outline-offset: 3px;
+      }
+
+      .wrap {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 0 32px;
+        position: relative;
+        z-index: 3;
+      }
+
+      /* Let mouse events pass through empty layout wrappers to the Spline canvas
+     underneath. Interactive content re-enables pointer-events below. */
+      header.hero,
+      section,
+      footer,
+      .wrap {
+        pointer-events: none;
+      }
+      nav,
+      .term-window,
+      .hero-cta,
+      .stat-grid,
+      .skills-tags,
+      .proj-grid,
+      .contact-window {
+        pointer-events: auto;
+      }
+
+      /* ---------- NAV ---------- */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
+        background: rgba(9, 11, 20, 0.75);
+        backdrop-filter: blur(12px);
+        border-bottom: 1px solid var(--panel-line);
+      }
+      .nav-inner {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 18px 32px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .logo {
+        font-family: var(--mono);
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--text);
+      }
+      .logo .prompt {
+        color: var(--cyan);
+      }
+      .logo .path {
+        color: var(--violet);
+      }
+      .nav-links {
+        display: flex;
+        gap: 32px;
+        list-style: none;
+      }
+      .nav-links a {
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--muted);
+        transition: color 0.2s ease;
+        position: relative;
+      }
+      .nav-links a:hover {
+        color: var(--cyan);
+      }
+      .nav-links a::before {
+        content: "./";
+        color: var(--dim);
+      }
+
+      /* ---------- HERO ---------- */
+      .hero {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        padding-top: 80px;
+        position: relative;
+      }
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        max-width: 640px;
+        gap: 48px;
+        align-items: center;
+        width: 100%;
+      }
+      .term-window {
+        background: var(--panel);
+        border: 1px solid var(--panel-line);
+        border-radius: 10px;
+        box-shadow: 0 0 60px -15px var(--violet-glow);
+        overflow: hidden;
+      }
+      .term-bar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 16px;
+        background: rgba(255, 255, 255, 0.02);
+        border-bottom: 1px solid var(--panel-line);
+      }
+      .term-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+      }
+      .term-dot.r {
+        background: #ff5f57;
+      }
+      .term-dot.y {
+        background: #febc2e;
+      }
+      .term-dot.g {
+        background: #28c840;
+      }
+      .term-title {
+        margin-left: 8px;
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--dim);
+      }
+      .term-body {
+        padding: 28px 28px 34px;
+        font-family: var(--mono);
+        font-size: 15px;
+        line-height: 1.9;
+        min-height: 220px;
+      }
+      .term-line {
+        color: var(--muted);
+      }
+      .term-line .cmd {
+        color: var(--cyan);
+      }
+      .term-out {
+        color: var(--text);
+      }
+      .hero-name {
+        font-family: var(--display);
+        font-size: clamp(32px, 4.4vw, 52px);
+        font-weight: 700;
+        line-height: 1.1;
+        margin: 14px 0 10px;
+        background: linear-gradient(
+          90deg,
+          #fff,
+          var(--violet) 60%,
+          var(--cyan)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+      .hero-sub {
+        color: var(--muted);
+        font-size: 15px;
+        max-width: 46ch;
+        text-shadow: 0 2px 12px rgba(9, 11, 20, 0.9);
+      }
+      .cursor {
+        display: inline-block;
+        width: 9px;
+        height: 18px;
+        background: var(--cyan);
+        vertical-align: middle;
+        margin-left: 2px;
+        animation: blink 1s step-end infinite;
+      }
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .hero-cta {
+        display: flex;
+        gap: 14px;
+        margin-top: 26px;
+      }
+      .btn {
+        font-family: var(--mono);
+        font-size: 13px;
+        font-weight: 500;
+        padding: 12px 20px;
+        border-radius: 6px;
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .btn-primary {
+        background: var(--violet);
+        color: #fff;
+        box-shadow: 0 0 24px -6px var(--violet-glow);
+      }
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 0 32px -4px var(--violet-glow);
+      }
+      .btn-ghost {
+        border: 1px solid var(--panel-line);
+        color: var(--text);
+      }
+      .btn-ghost:hover {
+        border-color: var(--cyan);
+        color: var(--cyan);
+      }
+
+      .bg-credit {
+        position: fixed;
+        bottom: 16px;
+        right: 18px;
+        z-index: 3;
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--dim);
+        background: rgba(9, 11, 20, 0.55);
+        padding: 5px 10px;
+        border-radius: 5px;
+        border: 1px solid var(--panel-line);
+        pointer-events: none;
+      }
+
+      /* ---------- SECTION SHELL ---------- */
+      section {
+        padding: 120px 0;
+        position: relative;
+      }
+      .sec-head {
+        display: flex;
+        align-items: baseline;
+        gap: 14px;
+        margin-bottom: 48px;
+      }
+      .sec-tag {
+        font-family: var(--mono);
+        font-size: 13px;
+        color: var(--cyan);
+      }
+      .sec-title {
+        font-family: var(--display);
+        font-size: clamp(24px, 3vw, 34px);
+        font-weight: 600;
+      }
+      .sec-rule {
+        flex: 1;
+        height: 1px;
+        background: var(--panel-line);
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.7s ease,
+          transform 0.7s ease;
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ---------- ABOUT ---------- */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 56px;
+        align-items: start;
+      }
+      .about-window .term-body {
+        font-family: var(--body);
+        font-size: 15.5px;
+        line-height: 1.85;
+        color: var(--muted);
+      }
+      .about-window .term-body strong {
+        color: var(--text);
+        font-weight: 600;
+      }
+      .stat-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      .stat {
+        border: 1px solid var(--panel-line);
+        border-radius: 8px;
+        padding: 20px;
+        background: rgba(124, 92, 252, 0.04);
+      }
+      .stat-num {
+        font-family: var(--display);
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--cyan);
+      }
+      .stat-label {
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--muted);
+        margin-top: 4px;
+      }
+
+      /* ---------- SKILLS ---------- */
+      .pkg-window .term-body {
+        font-size: 14px;
+      }
+      .pkg-line {
+        color: var(--muted);
+      }
+      .pkg-key {
+        color: var(--violet);
+      }
+      .pkg-str {
+        color: var(--cyan);
+      }
+      .skills-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 36px;
+      }
+      .tag {
+        font-family: var(--mono);
+        font-size: 13px;
+        padding: 9px 16px;
+        border-radius: 20px;
+        border: 1px solid var(--panel-line);
+        color: var(--muted);
+        transition: all 0.2s ease;
+      }
+      .tag:hover {
+        border-color: var(--cyan);
+        color: var(--cyan);
+        box-shadow: 0 0 16px -6px var(--cyan-glow);
+        transform: translateY(-2px);
+      }
+
+      /* ---------- PROJECTS ---------- */
+      .proj-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 24px;
+      }
+      .proj-card {
+        border: 1px solid var(--panel-line);
+        border-radius: 10px;
+        overflow: hidden;
+        background: var(--panel);
+        transition:
+          border-color 0.25s ease,
+          transform 0.25s ease,
+          box-shadow 0.25s ease;
+      }
+      .proj-card:hover {
+        border-color: var(--violet);
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px -12px var(--violet-glow);
+      }
+      .proj-tab {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 16px;
+        border-bottom: 1px solid var(--panel-line);
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--dim);
+        background: rgba(255, 255, 255, 0.02);
+      }
+      .proj-tab .dot {
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--cyan);
+      }
+      .proj-body {
+        padding: 22px 22px 26px;
+      }
+      .proj-title {
+        font-family: var(--display);
+        font-size: 19px;
+        font-weight: 600;
+        margin-bottom: 8px;
+      }
+      .proj-desc {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.7;
+        margin-bottom: 16px;
+      }
+      .proj-stack {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-bottom: 18px;
+      }
+      .chip {
+        font-family: var(--mono);
+        font-size: 11px;
+        color: var(--violet);
+        border: 1px solid rgba(124, 92, 252, 0.3);
+        border-radius: 4px;
+        padding: 3px 8px;
+      }
+      .proj-links {
+        display: flex;
+        gap: 18px;
+      }
+      .proj-links a {
+        font-family: var(--mono);
+        font-size: 12.5px;
+        color: var(--cyan);
+        border-bottom: 1px solid transparent;
+      }
+      .proj-links a:hover {
+        border-bottom-color: var(--cyan);
+      }
+
+      /* ---------- CONTACT ---------- */
+      .contact-window {
+        max-width: 640px;
+        margin: 0 auto;
+      }
+      .contact-body {
+        padding: 32px;
+      }
+      .contact-line {
+        font-family: var(--mono);
+        font-size: 14px;
+        color: var(--muted);
+        margin-bottom: 18px;
+      }
+      .contact-line .cmd {
+        color: var(--cyan);
+      }
+      .contact-links {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-top: 22px;
+      }
+      .contact-links a {
+        font-family: var(--mono);
+        font-size: 15px;
+        color: var(--text);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 16px;
+        border: 1px solid var(--panel-line);
+        border-radius: 8px;
+        transition: all 0.2s ease;
+      }
+      .contact-links a:hover {
+        border-color: var(--cyan);
+        color: var(--cyan);
+        background: rgba(53, 230, 196, 0.05);
+      }
+      .contact-links a::before {
+        content: ">";
+        color: var(--violet);
+      }
+
+      footer {
+        text-align: center;
+        padding: 36px 0 48px;
+        font-family: var(--mono);
+        font-size: 12px;
+        color: var(--dim);
+      }
+
+      @media (max-width: 860px) {
+        .hero-grid {
+          grid-template-columns: 1fr;
+        }
+        .about-grid {
+          grid-template-columns: 1fr;
+        }
+        .proj-grid {
+          grid-template-columns: 1fr;
+        }
+        .nav-links {
+          display: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+        html {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Full-page Spline background — replace the url below with your own exported scene.splinecode link -->
+    <div class="bg-spline">
+      <spline-viewer
+        url="https://prod.spline.design/QykuhvcwMcxsYxTw/scene.splinecode"
+        loading="eager"
+      ></spline-viewer>
+    </div>
+    <div class="bg-overlay"></div>
+    <span class="bg-credit">// placeholder scene — swap with your own</span>
+
+    <nav>
+      <div class="nav-inner">
+        <div class="logo">
+          <span class="prompt">sanjana@dev</span><span class="path">:~$</span>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#about">about</a></li>
+          <li><a href="#skills">skills</a></li>
+          <li><a href="#projects">projects</a></li>
+          <li><a href="#contact">contact</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <header class="hero">
+      <div class="wrap">
+        <div class="hero-grid">
+          <div>
+            <div class="term-window">
+              <div class="term-bar">
+                <span class="term-dot r"></span><span class="term-dot y"></span
+                ><span class="term-dot g"></span>
+                <span class="term-title">intro.sh</span>
+              </div>
+              <div class="term-body">
+                <div class="term-line"><span class="cmd">$</span> whoami</div>
+                <div class="hero-name" id="typedName"></div>
+                <div class="term-out" id="typedRole"></div>
+              </div>
+            </div>
+            <p class="hero-sub" style="margin-top: 22px">
+              Computer Science student who likes building things end to end —
+              from clean backend logic to interfaces that feel alive. Currently
+              sharpening skills in full-stack development and exploring where 3D
+              and web design meet.
+            </p>
+            <div class="hero-cta">
+              <a href="#projects" class="btn btn-primary">View projects →</a>
+              <a href="#contact" class="btn btn-ghost">Get in touch</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="about">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="sec-tag">01</span>
+          <h2 class="sec-title">/about</h2>
+          <div class="sec-rule"></div>
+        </div>
+        <div class="about-grid">
+          <div class="term-window about-window reveal">
+            <div class="term-bar">
+              <span class="term-dot r"></span><span class="term-dot y"></span
+              ><span class="term-dot g"></span>
+              <span class="term-title">about.md</span>
+            </div>
+            <div class="term-body">
+              I'm <strong>Sanjana Fernando</strong>, a Computer Science student
+              who enjoys the moment code stops being instructions and starts
+              being an experience. I split my time between backend logic — APIs,
+              data structures, algorithms — and the front-end details that make
+              software feel considered rather than just functional. <br /><br />
+              Lately I've been drawn to the space where design tools like
+              <strong>Spline</strong> meet real engineering: building interfaces
+              that feel dimensional instead of flat, without losing sight of
+              performance and usability.
+            </div>
+          </div>
+          <div class="reveal">
+            <div class="stat-grid">
+              <div class="stat">
+                <div class="stat-num">10+</div>
+                <div class="stat-label">// projects shipped</div>
+              </div>
+              <div class="stat">
+                <div class="stat-num">6</div>
+                <div class="stat-label">// languages used</div>
+              </div>
+              <div class="stat">
+                <div class="stat-num">3</div>
+                <div class="stat-label">// hackathons</div>
+              </div>
+              <div class="stat">
+                <div class="stat-num">∞</div>
+                <div class="stat-label">// curiosity</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="sec-tag">02</span>
+          <h2 class="sec-title">/skills</h2>
+          <div class="sec-rule"></div>
+        </div>
+        <div class="term-window pkg-window reveal">
+          <div class="term-bar">
+            <span class="term-dot r"></span><span class="term-dot y"></span
+            ><span class="term-dot g"></span>
+            <span class="term-title">package.json</span>
+          </div>
+          <div class="term-body">
+            <div class="pkg-line">{</div>
+            <div class="pkg-line">
+              &nbsp;&nbsp;<span class="pkg-key">"name"</span>:
+              <span class="pkg-str">"sanjana-fernando"</span>,
+            </div>
+            <div class="pkg-line">
+              &nbsp;&nbsp;<span class="pkg-key">"role"</span>:
+              <span class="pkg-str">"cs-student"</span>,
+            </div>
+            <div class="pkg-line">
+              &nbsp;&nbsp;<span class="pkg-key">"status"</span>:
+              <span class="pkg-str">"actively-learning"</span>
+            </div>
+            <div class="pkg-line">}</div>
+          </div>
+        </div>
+        <div class="skills-tags reveal">
+          <span class="tag">Python</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">Java</span>
+          <span class="tag">React</span>
+          <span class="tag">Node.js</span>
+          <span class="tag">SQL</span>
+          <span class="tag">Git &amp; GitHub</span>
+          <span class="tag">HTML / CSS</span>
+          <span class="tag">Data Structures</span>
+          <span class="tag">REST APIs</span>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="sec-tag">03</span>
+          <h2 class="sec-title">/projects</h2>
+          <div class="sec-rule"></div>
+        </div>
+        <div class="proj-grid">
+          <div class="proj-card reveal">
+            <div class="proj-tab"><span class="dot"></span>project-one.tsx</div>
+            <div class="proj-body">
+              <div class="proj-title">Project One</div>
+              <p class="proj-desc">
+                Short description of what this project does and the problem it
+                solves. Swap in your real project details here.
+              </p>
+              <div class="proj-stack">
+                <span class="chip">React</span><span class="chip">Node.js</span
+                ><span class="chip">MongoDB</span>
+              </div>
+              <div class="proj-links">
+                <a href="#">Live demo</a>
+                <a href="#">Source</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="proj-card reveal">
+            <div class="proj-tab"><span class="dot"></span>project-two.py</div>
+            <div class="proj-body">
+              <div class="proj-title">Project Two</div>
+              <p class="proj-desc">
+                Short description of what this project does and the problem it
+                solves. Swap in your real project details here.
+              </p>
+              <div class="proj-stack">
+                <span class="chip">Python</span><span class="chip">Flask</span
+                ><span class="chip">PostgreSQL</span>
+              </div>
+              <div class="proj-links">
+                <a href="#">Live demo</a>
+                <a href="#">Source</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="proj-card reveal">
+            <div class="proj-tab">
+              <span class="dot"></span>project-three.java
+            </div>
+            <div class="proj-body">
+              <div class="proj-title">Project Three</div>
+              <p class="proj-desc">
+                Short description of what this project does and the problem it
+                solves. Swap in your real project details here.
+              </p>
+              <div class="proj-stack">
+                <span class="chip">Java</span
+                ><span class="chip">Spring Boot</span>
+              </div>
+              <div class="proj-links">
+                <a href="#">Live demo</a>
+                <a href="#">Source</a>
+              </div>
+            </div>
+          </div>
+
+          <div class="proj-card reveal">
+            <div class="proj-tab"><span class="dot"></span>project-four.js</div>
+            <div class="proj-body">
+              <div class="proj-title">Project Four</div>
+              <p class="proj-desc">
+                Short description of what this project does and the problem it
+                solves. Swap in your real project details here.
+              </p>
+              <div class="proj-stack">
+                <span class="chip">JavaScript</span
+                ><span class="chip">Three.js</span>
+              </div>
+              <div class="proj-links">
+                <a href="#">Live demo</a>
+                <a href="#">Source</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact">
+      <div class="wrap">
+        <div class="sec-head reveal">
+          <span class="sec-tag">04</span>
+          <h2 class="sec-title">/contact</h2>
+          <div class="sec-rule"></div>
+        </div>
+        <div class="term-window contact-window reveal">
+          <div class="term-bar">
+            <span class="term-dot r"></span><span class="term-dot y"></span
+            ><span class="term-dot g"></span>
+            <span class="term-title">contact.sh</span>
+          </div>
+          <div class="contact-body">
+            <div class="contact-line">
+              <span class="cmd">$</span> ./reach_out --to sanjana
+            </div>
+            <p style="color: var(--muted); font-size: 14.5px">
+              Open to internships, collaborations, and interesting problems to
+              solve.
+            </p>
+            <div class="contact-links">
+              <a href="mailto:you@example.com">you@example.com</a>
+              <a
+                href="https://linkedin.com/in/yourprofile"
+                target="_blank"
+                rel="noopener"
+                >linkedin.com/in/yourprofile</a
+                >
+              <a
+                href="https://github.com/SanjanaFernando"
+                target="_blank"
+                rel="noopener"
+                >github.com/SanjanaFernando</a
+                >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>built by Sanjana Fernando · rendered with Spline</footer>
+
+    <script>
+      // Typing effect for hero name/role
+      const nameEl = document.getElementById("typedName");
+      const roleEl = document.getElementById("typedRole");
+      const nameText = "Sanjana Fernando";
+      const roleText = "> CS student · full-stack in progress";
+
+      function typeText(el, text, speed, cb) {
+        let i = 0;
+        const cursor = document.createElement("span");
+        cursor.className = "cursor";
+        function step() {
+          el.textContent = text.slice(0, i);
+          if (i === 0) {
+            el.appendChild(cursor);
+          }
+          if (i < text.length) {
+            i++;
+            setTimeout(step, speed);
+          } else {
+            el.appendChild(cursor);
+            if (cb) cb();
+          }
+        }
+        step();
+      }
+
+      const reduceMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)",
+      ).matches;
+      if (reduceMotion) {
+        nameEl.textContent = nameText;
+        roleEl.textContent = roleText;
+      } else {
+        typeText(nameEl, nameText, 55, () => {
+          setTimeout(() => typeText(roleEl, roleText, 30), 200);
+        });
+      }
+
+      // Scroll reveal
+      const revealEls = document.querySelectorAll(".reveal");
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("in");
+              io.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.15 },
+      );
+      revealEls.forEach((el) => io.observe(el));
+    </script>
+  </body>
+</html>
