@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 const NAME = 'Sanjana Fernando';
 const ROLE = '> Computer Engineering student · Software Engineer';
-const PHOTOS = ['/me1.png', '/me2.png'];
+const PHOTOS = ['/me1.png', '/me2.png', '/me3.png'];
 
 export const Hero: React.FC = () => {
   // ── Entrance animation ────────────────────────────────────────────────
@@ -10,11 +10,11 @@ export const Hero: React.FC = () => {
 
   // ── Photo glitch state (needs re-render, so useState is fine) ────────
   const [photoIndex, setPhotoIndex] = useState(0);
-  const [glitching, setGlitching]   = useState(false);
+  const [glitching, setGlitching] = useState(false);
 
   // ── DOM refs for typewriter (avoids React state batching entirely) ────
-  const nameEl   = useRef<HTMLDivElement>(null);
-  const roleEl   = useRef<HTMLDivElement>(null);
+  const nameEl = useRef<HTMLDivElement>(null);
+  const roleEl = useRef<HTMLDivElement>(null);
   const curNameEl = useRef<HTMLSpanElement>(null);
   const curRoleEl = useRef<HTMLSpanElement>(null);
 
@@ -28,10 +28,10 @@ export const Hero: React.FC = () => {
 
   // ── Typewriter via direct DOM writes — zero React state involved ──────
   useEffect(() => {
-    const nameDiv  = nameEl.current;
-    const roleDiv  = roleEl.current;
-    const curName  = curNameEl.current;
-    const curRole  = curRoleEl.current;
+    const nameDiv = nameEl.current;
+    const roleDiv = roleEl.current;
+    const curName = curNameEl.current;
+    const curRole = curRoleEl.current;
     if (!nameDiv || !roleDiv || !curName || !curRole) return;
 
 
