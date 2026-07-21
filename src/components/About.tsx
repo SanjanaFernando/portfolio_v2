@@ -18,35 +18,33 @@ export const About: React.FC = () => {
               <span className="term-title">about.md</span>
             </div>
             <div className="term-body">
-              I'm <strong>Sanjana Fernando</strong>, a Computer Engineering student
-              who enjoys the moment code stops being instructions and starts
-              being an experience. I split my time between backend logic — APIs,
-              databases, algorithms — and the front-end details that make
-              software feel considered rather than just functional. <br /><br />
-              Lately I've been drawn to the space where design tools like
-              <strong> Spline</strong> meet real engineering: building interfaces
-              that feel dimensional instead of flat, without losing sight of
-              performance and usability.
+              I'm <strong>Sanjana Fernando</strong>, a Computer Engineering undergraduate
+              with a strong foundation in data structures, algorithms, full-stack development,
+              and machine learning. I enjoy building responsive applications and collaborating in agile teams to
+              deliver scalable, secure, and user-focused solutions. <br /><br />
+              I split my time between backend logic — APIs, databases, algorithms — and the front-end details that make
+              software feel considered. Lately I've been drawn to the space where design tools like
+              <strong> Spline</strong> meet real engineering.
             </div>
           </div>
 
           <div className="reveal-right">
             <div className="stat-grid reveal-stagger" style={{ marginBottom: '24px' }}>
               <div className="stat">
-                <div className="stat-num">10+</div>
-                <div className="stat-label">// projects shipped</div>
+                <div className="stat-num">7+</div>
+                <div className="stat-label">// key projects</div>
               </div>
               <div className="stat">
-                <div className="stat-num">6</div>
-                <div className="stat-label">// languages used</div>
+                <div className="stat-num">8+</div>
+                <div className="stat-label">// languages & tools</div>
               </div>
               <div className="stat">
-                <div className="stat-num">3</div>
-                <div className="stat-label">// hackathons</div>
+                <div className="stat-num">4+</div>
+                <div className="stat-label">// certifications</div>
               </div>
               <div className="stat">
-                <div className="stat-num">∞</div>
-                <div className="stat-label">// curiosity</div>
+                <div className="stat-num">3+</div>
+                <div className="stat-label">// leadership roles</div>
               </div>
             </div>
 
@@ -66,13 +64,16 @@ export const About: React.FC = () => {
                   &nbsp;&nbsp;&nbsp;&nbsp;<span className="pkg-key">"institute"</span>: <span className="pkg-str">"University of Ruhuna"</span>,
                 </div>
                 <div className="pkg-line">
-                  &nbsp;&nbsp;&nbsp;&nbsp;<span className="pkg-key">"specialization"</span>: <span className="pkg-str">"Computer Engineering"</span>,
+                  &nbsp;&nbsp;&nbsp;&nbsp;<span className="pkg-key">"department"</span>: <span className="pkg-str">"Dept. of Electrical and Information Engineering"</span>,
                 </div>
                 <div className="pkg-line">
-                  &nbsp;&nbsp;&nbsp;&nbsp;<span className="pkg-key">"cgpa"</span>: <span className="pkg-str">"2.77"</span>,
+                  &nbsp;&nbsp;&nbsp;&nbsp;<span className="pkg-key">"specialization"</span>: <span className="pkg-str">"B.Sc. in Computer Engineering Specialization"</span>,
                 </div>
                 <div className="pkg-line">
-                  &nbsp;&nbsp;&nbsp;&nbsp;<span className="pkg-key">"period"</span>: <span className="pkg-str">"2022 - Present"</span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;<span className="pkg-key">"cgpa"</span>: <span className="pkg-str">"3.33 / 4.00"</span>,
+                </div>
+                <div className="pkg-line">
+                  &nbsp;&nbsp;&nbsp;&nbsp;<span className="pkg-key">"expectedGraduation"</span>: <span className="pkg-str">"Sep 2026"</span>
                 </div>
                 <div className="pkg-line">
                   &nbsp;&nbsp;{"},"}
@@ -81,13 +82,13 @@ export const About: React.FC = () => {
                   &nbsp;&nbsp;{"{"}
                 </div>
                 <div className="pkg-line">
-                  &nbsp;&nbsp;&nbsp;&nbsp;<span className="pkg-key">"institute"</span>: <span className="pkg-str">"Bandaranayake College Gampaha"</span>,
+                  &nbsp;&nbsp;&nbsp;&nbsp;<span className="pkg-key">"institute"</span>: <span className="pkg-str">"GCE Advanced Level (2020)"</span>,
                 </div>
                 <div className="pkg-line">
-                  &nbsp;&nbsp;&nbsp;&nbsp;<span className="pkg-key">"a-levels"</span>: <span className="pkg-str">"Combined Maths (A), Physics (A), Chemistry (B)"</span>,
+                  &nbsp;&nbsp;&nbsp;&nbsp;<span className="pkg-key">"results"</span>: <span className="pkg-str">"Combined Maths (A), Physics (A), Chemistry (B)"</span>,
                 </div>
                 <div className="pkg-line">
-                  &nbsp;&nbsp;&nbsp;&nbsp;<span className="pkg-key">"o-levels"</span>: <span className="pkg-str">"8As, 1B"</span>
+                  &nbsp;&nbsp;&nbsp;&nbsp;<span className="pkg-key">"zScore"</span>: <span className="pkg-str">"1.9"</span>
                 </div>
                 <div className="pkg-line">
                   &nbsp;&nbsp;{"}"}

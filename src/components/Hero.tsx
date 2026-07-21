@@ -1,118 +1,153 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+
+const NAME = 'Sanjana Fernando';
+const ROLE = '> Computer Engineering student · Software Engineer';
+const PHOTOS = ['/me1.png', '/me2.png'];
 
 export const Hero: React.FC = () => {
-  const [nameText, setNameText] = useState('');
-  const [roleText, setRoleText] = useState('');
-  const [showRoleCursor, setShowRoleCursor] = useState(false);
-  const [showNameCursor, setShowNameCursor] = useState(false);
-  const [photoIndex, setPhotoIndex] = useState(0);
-  const [glitching, setGlitching] = useState(false);
+  // ── Entrance animation ────────────────────────────────────────────────
   const [visible, setVisible] = useState(false);
-  const heroRef = useRef<HTMLElement>(null);
 
-  const nameTarget = "Sanjana Fernando";
-  const roleTarget = "> CS student · full-stack in progress";
-  const photos = ['/me1.png', '/me2.png'];
+  // ── Photo glitch state (needs re-render, so useState is fine) ────────
+  const [photoIndex, setPhotoIndex] = useState(0);
+  const [glitching, setGlitching]   = useState(false);
 
-  // Trigger entrance animation after mount
+  // ── DOM refs for typewriter (avoids React state batching entirely) ────
+  const nameEl   = useRef<HTMLDivElement>(null);
+  const roleEl   = useRef<HTMLDivElement>(null);
+  const curNameEl = useRef<HTMLSpanElement>(null);
+  const curRoleEl = useRef<HTMLSpanElement>(null);
+
+  // ── Entrance: add class after one frame so CSS transition fires ───────
   useEffect(() => {
-    const t = setTimeout(() => setVisible(true), 50);
-    return () => clearTimeout(t);
+    const id = requestAnimationFrame(() => {
+      requestAnimationFrame(() => setVisible(true));
+    });
+    return () => cancelAnimationFrame(id);
   }, []);
 
-  // Typewriter effect
+  // ── Typewriter via direct DOM writes — zero React state involved ──────
   useEffect(() => {
-    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (reduceMotion) {
-      setNameText(nameTarget);
-      setRoleText(roleTarget);
-      setShowNameCursor(true);
-      setShowRoleCursor(true);
-      return;
-    }
+    const nameDiv  = nameEl.current;
+    const roleDiv  = roleEl.current;
+    const curName  = curNameEl.current;
+    const curRole  = curRoleEl.current;
+    if (!nameDiv || !roleDiv || !curName || !curRole) return;
 
-    let nameIdx = 0;
-    let roleIdx = 0;
+
+    // Reset DOM in case HMR reloaded without full page refresh
+    nameDiv.textContent = '';
+    roleDiv.textContent = '';
+    curName.style.display = 'none';
+    curRole.style.display = 'none';
+
+    let tid: ReturnType<typeof setTimeout>;
+    let dead = false;
+
+    const go = (fn: () => void, ms: number) => {
+      tid = setTimeout(() => { if (!dead) fn(); }, ms);
+    };
+
+    let ni = 0;
+    let ri = 0;
 
     const typeName = () => {
-      if (nameIdx <= nameTarget.length) {
-        setNameText(nameTarget.slice(0, nameIdx));
-        nameIdx++;
-        setTimeout(typeName, 55);
+      if (ni <= NAME.length) {
+        nameDiv.textContent = NAME.slice(0, ni);
+        ni++;
+        go(typeName, 65);
       } else {
-        setShowNameCursor(true);
-        setTimeout(startRoleTyping, 200);
+        // Name done — show name cursor briefly, then start role
+        curName.style.display = 'inline-block';
+        go(() => {
+          curName.style.display = 'none';
+          curRole.style.display = 'inline-block';
+          go(typeRole, 60);
+        }, 350);
       }
     };
 
-    const startRoleTyping = () => {
-      setShowNameCursor(false);
-      setShowRoleCursor(true);
-      const typeRole = () => {
-        if (roleIdx <= roleTarget.length) {
-          setRoleText(roleTarget.slice(0, roleIdx));
-          roleIdx++;
-          setTimeout(typeRole, 30);
-        }
-      };
-      typeRole();
+    const typeRole = () => {
+      if (ri <= ROLE.length) {
+        roleDiv.textContent = ROLE.slice(0, ri);
+        ri++;
+        go(typeRole, 33);
+      }
+      // role cursor stays blinking after done
     };
 
-    // Delay typewriter to sync with entrance animation
-    const delay = setTimeout(typeName, 700);
-    return () => clearTimeout(delay);
+    // Begin typing 600ms after mount (card slide-in takes ~300ms + 800ms)
+    go(typeName, 600);
+
+    return () => {
+      dead = true;
+      clearTimeout(tid);
+    };
   }, []);
 
-  // Photo glitch switcher
+  // ── Photo glitch cycle ────────────────────────────────────────────────
   useEffect(() => {
-    const schedule = () => {
-      const wait = 3000 + Math.random() * 2000;
-      return setTimeout(() => {
+    let tid: ReturnType<typeof setTimeout>;
+    let alive = true;
+
+    const cycle = () => {
+      tid = setTimeout(() => {
+        if (!alive) return;
         setGlitching(true);
-        setTimeout(() => {
-          setPhotoIndex(prev => (prev + 1) % photos.length);
-          setTimeout(() => {
+        tid = setTimeout(() => {
+          if (!alive) return;
+          setPhotoIndex(p => (p + 1) % PHOTOS.length);
+          tid = setTimeout(() => {
+            if (!alive) return;
             setGlitching(false);
+            cycle();
           }, 180);
         }, 120);
-        schedule();
-      }, wait);
+      }, 3000 + Math.random() * 2000);
     };
-    const timer = schedule();
-    return () => clearTimeout(timer);
+
+    cycle();
+    return () => { alive = false; clearTimeout(tid); };
   }, []);
 
   return (
-    <header className={`hero${visible ? ' hero-visible' : ''}`} ref={heroRef}>
+    <header className={`hero${visible ? ' hero-visible' : ''}`}>
       <div className="wrap">
         <div className="hero-grid hero-grid-two-col">
-          {/* LEFT: Name card */}
+
+          {/* ── LEFT: terminal card ───────────────────────────────────── */}
           <div className={`hero-left${visible ? ' hero-left-in' : ''}`}>
             <div className="term-window hero-term">
               <div className="term-bar">
-                <span className="term-dot r"></span>
-                <span className="term-dot y"></span>
-                <span className="term-dot g"></span>
+                <span className="term-dot r" />
+                <span className="term-dot y" />
+                <span className="term-dot g" />
                 <span className="term-title">intro.sh</span>
               </div>
               <div className="term-body">
                 <div className="term-line"><span className="cmd">$</span> whoami</div>
+
+                {/* name line — written directly via ref */}
                 <div className="hero-name" id="typedName">
-                  {nameText}
-                  {showNameCursor && <span className="cursor" />}
+                  <span ref={nameEl} />
+                  <span className="cursor" ref={curNameEl} style={{ display: 'none' }} />
                 </div>
+
+                {/* role line — written directly via ref */}
                 <div className="term-out" id="typedRole">
-                  {roleText}
-                  {showRoleCursor && <span className="cursor" />}
+                  <span ref={roleEl} />
+                  <span className="cursor" ref={curRoleEl} style={{ display: 'none' }} />
                 </div>
               </div>
             </div>
+
             <p className={`hero-sub${visible ? ' hero-sub-in' : ''}`} style={{ marginTop: '22px' }}>
               Computer Science student who likes building things end to end —
               from clean backend logic to interfaces that feel alive. Currently
               sharpening skills in full-stack development and exploring where 3D
               and web design meet.
             </p>
+
             <div className={`hero-cta${visible ? ' hero-cta-in' : ''}`}>
               <a href="#projects" className="btn btn-primary">
                 <span className="glitch" data-text="View projects →">View projects →</span>
@@ -123,37 +158,20 @@ export const Hero: React.FC = () => {
             </div>
           </div>
 
-          {/* RIGHT: Photo */}
+          {/* ── RIGHT: photo ──────────────────────────────────────────── */}
           <div className={`hero-right${visible ? ' hero-right-in' : ''}`}>
             <div className={`hero-photo-frame${glitching ? ' glitching' : ''}`}>
               <div className="hero-photo-glow" />
-
-              {/* Subject wrapper — glitch layers are sibling <img>s with same transparent PNG */}
               <div className="photo-subject">
-                <img
-                  src={photos[photoIndex]}
-                  alt="Sanjana Fernando"
-                  className="hero-photo-img"
-                />
-                {/* Red channel ghost — shifted left, clipped to scanlines */}
-                <img
-                  src={photos[photoIndex]}
-                  aria-hidden="true"
-                  className="photo-ghost photo-ghost-r"
-                />
-                {/* Cyan channel ghost — shifted right, different scanline band */}
-                <img
-                  src={photos[photoIndex]}
-                  aria-hidden="true"
-                  className="photo-ghost photo-ghost-c"
-                />
+                <img src={PHOTOS[photoIndex]} alt="Sanjana Fernando" className="hero-photo-img" />
+                <img src={PHOTOS[photoIndex]} aria-hidden="true" className="photo-ghost photo-ghost-r" />
+                <img src={PHOTOS[photoIndex]} aria-hidden="true" className="photo-ghost photo-ghost-c" />
               </div>
-
-              {/* Corner accents */}
               <span className="corner-tl" />
               <span className="corner-br" />
             </div>
           </div>
+
         </div>
       </div>
     </header>

@@ -11,18 +11,18 @@ interface ExpItem {
 export const Experience: React.FC = () => {
   const experiences: ExpItem[] = [
     {
-      role: "Full Stack Software Engineer Intern",
-      company: "BotCalm",
-      period: "Present",
-      description: "Developing and optimizing full-stack applications with robust architecture and interactive client interfaces.",
-      skills: ["MongoDB", "Express.js", "React", "Node.js", "Postman", "Vite", "Next.js"]
+      role: "Software Engineering Intern",
+      company: "BotCalm (PVT) Ltd.",
+      period: "May 2025 – Feb 2026",
+      description: "Built responsive web applications using Vite.js and Next.js, integrating animations with Framer Motion. Co-engineered a luxury marketplace, optimized backend APIs reducing page load by 15%, and collaborated on a real-time fraud detection project.",
+      skills: ["React.js", "Next.js", "Vite.js", "Framer Motion", "TypeScript", "REST APIs", "Node.js"]
     },
     {
-      role: "Branch Assistant (Contract)",
+      role: "Bank Trainee",
       company: "Peoples Bank",
-      period: "Dec 2021 - Apr 2022",
-      description: "Worked at the Bambalapitiya Co-op house branch, handling administration and customer-facing service workflows post-Advanced Levels.",
-      skills: ["Customer Service", "Financial Operations", "Administration"]
+      period: "Dec 2021 – Feb 2022",
+      description: "Processed 150+ daily high-volume financial transactions as main cashier with 100% accuracy in cash balancing. Resolved critical customer inquiries and maintained adherence to banking compliance regulations.",
+      skills: ["Customer Service", "Financial Transactions", "Compliance Auditing"]
     }
   ];
 

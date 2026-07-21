@@ -1368,30 +1368,4 @@ footer::before {
     display: none;
   }
 }
-
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation: none !important;
-    transition: none !important;
-  }
-
-  html {
-    scroll-behavior: auto;
-  }
-
-  /* Ensure all animation-hidden elements are visible when motion is off */
-  nav,
-  .logo,
-  .nav-links li,
-  .hero-left,
-  .hero-right,
-  .hero-sub,
-  .hero-cta,
-  .reveal,
-  .reveal-left,
-  .reveal-right,
-  .tag {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-}
+/* animations always run — portfolio site, not a utility app */

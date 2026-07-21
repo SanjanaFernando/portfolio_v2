@@ -2,22 +2,30 @@ import React from 'react';
 
 export const Skills: React.FC = () => {
   const skills = [
-    "React.js",
-    "Next.js",
-    "Node.js",
-    "Express.js",
     "MongoDB",
+    "Express.js",
+    "React.js",
+    "Node.js",
+    "Next.js",
+    "Vite.js",
+    "TypeScript",
+    "REST APIs",
+    "Tailwind CSS",
+    "Spline",
     "Flutter",
     "Dart",
     "Firebase",
     "Python",
-    "Scikit-learn",
     "Pandas & NumPy",
-    "SQL / PostgreSQL",
-    "Postman",
-    "Vite",
-    "REST APIs",
-    "Git & GitHub"
+    "Scikit-learn",
+    "PyTorch",
+    "Reinforcement Learning",
+    "Computer Vision",
+    "OpenCV",
+    "MediaPipe",
+    "Git",
+    "Web Security",
+    "Cryptography"
   ];
 
   return (
@@ -43,19 +51,20 @@ export const Skills: React.FC = () => {
             </div>
             <div className="pkg-line">
               &nbsp;&nbsp;<span className="pkg-key">"role"</span>:{" "}
-              <span className="pkg-str">"full-stack-se-intern"</span>,
+              <span className="pkg-str">"Software Engineer"</span>,
             </div>
             <div className="pkg-line">
               &nbsp;&nbsp;<span className="pkg-key">"categories"</span>:{" "}
               <span className="pkg-line">{"["}</span>
-              <span className="pkg-str">"web"</span>,{" "}
-              <span className="pkg-str">"mobile"</span>,{" "}
-              <span className="pkg-str">"machine-learning"</span>
+              <span className="pkg-str">"web-dev"</span>,{" "}
+              <span className="pkg-str">"mobile-dev"</span>,{" "}
+              <span className="pkg-str">"machine-learning-ai"</span>,{" "}
+              <span className="pkg-str">"security-tools"</span>
               <span className="pkg-line">{"]"}</span>,
             </div>
             <div className="pkg-line">
               &nbsp;&nbsp;<span className="pkg-key">"status"</span>:{" "}
-              <span className="pkg-str">"actively-building"</span>
+              <span className="pkg-str">"undergraduate-computer-engineering"</span>
             </div>
             <div className="pkg-line">{"}"}</div>
           </div>

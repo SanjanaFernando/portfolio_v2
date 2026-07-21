@@ -12,58 +12,58 @@ interface Project {
 export const Projects: React.FC = () => {
   const projects: Project[] = [
     {
-      tabName: "e-chess.tsx",
-      title: "E-Chess (Ongoing)",
-      desc: "A platform designed to manage and facilitate chess tournaments, enabling users to organize and participate in competitive matches online.",
-      stack: ["MongoDB", "Express.js", "Vite.js", "Node.js"],
+      tabName: "bed_allocation_rl.py",
+      title: "Hospital Bed Allocation & Management Platform",
+      desc: "Developed a full-stack optimization platform combining a Next.js dashboard with a Python backend to deploy a custom Reinforcement Learning agent, successfully automating hospital bed allocation to maximize asset utilization and reduce patient wait times.",
+      stack: ["Next.js", "React.js", "Tailwind CSS", "Python", "PyTorch", "DDQN", "NumPy", "Pandas", "SciPy"],
+      demoUrl: "#",
+      sourceUrl: "#"
+    },
+    {
+      tabName: "booktalk_chat.tsx",
+      title: "BookTalk – AI Chat Application",
+      desc: "Built a Next.js chat application featuring a clean web UI to interact with a Groq-hosted Llama model, leveraging advanced streaming capabilities.",
+      stack: ["Next.js", "React.js", "TypeScript", "Tailwind CSS", "Vercel AI SDK", "Groq", "OpenAI SDK"],
+      demoUrl: "#",
+      sourceUrl: "#"
+    },
+    {
+      tabName: "virtual_mouse.py",
+      title: "AI-Powered Hand Gesture Virtual Mouse",
+      desc: "Engineered an AI-driven computer vision application that processes real-time webcam streams to track hand landmarks and classify gestures for system control.",
+      stack: ["Python", "PyTorch", "MediaPipe", "OpenCV", "Deep Learning"],
+      demoUrl: "#",
+      sourceUrl: "#"
+    },
+    {
+      tabName: "secure_file_drop.js",
+      title: "Secure File Drop",
+      desc: "Co-engineered a secure full-stack web application featuring a robust authentication system and granular access controls to guarantee protected file transfers, implementing proactive defenses against unauthorized access.",
+      stack: ["Cryptography", "Web Security Models", "HTML", "CSS", "Git"],
+      demoUrl: "#",
+      sourceUrl: "#"
+    },
+    {
+      tabName: "e_chess.js",
+      title: "E-Chess",
+      desc: "Developed a full-stack web platform designed to manage and participate in competitive, real-time chess tournaments.",
+      stack: ["MongoDB", "Express.js", "Vite.js", "Node.js", "Chess.js"],
+      demoUrl: "#",
+      sourceUrl: "#"
+    },
+    {
+      tabName: "fitness_tracker.dart",
+      title: "Fitness Tracking Mobile Application",
+      desc: "Created a mobile application for comprehensive fitness tracking, providing users with specialized meal plans, exercise tracking, and workout routines.",
+      stack: ["Flutter", "Dart", "Firebase"],
       demoUrl: "#",
       sourceUrl: "#"
     },
     {
       tabName: "currency_exchange.tsx",
       title: "Currency Exchange Market",
-      desc: "A prototype currency exchange platform supporting real-time transactions, rates, and wallet management simulated in a clean user dashboard.",
-      stack: ["MongoDB", "Express.js", "React.js", "Node.js"],
-      demoUrl: "#",
-      sourceUrl: "#"
-    },
-    {
-      tabName: "fitness_app.dart",
-      title: "Fitness App",
-      desc: "An Android application designed to keep track of user fitness metrics, providing customized workout logs, diet plans, and progress tracking.",
-      stack: ["Flutter", "Dart", "Firebase"],
-      demoUrl: "#",
-      sourceUrl: "#"
-    },
-    {
-      tabName: "form_builder.tsx",
-      title: "Dynamic Form Builder (Ongoing)",
-      desc: "A drag-and-drop form designer platform allowing creators to configure custom input schemas, deploy forms instantly, and track submissions. Managed as a DevOps pipeline project.",
-      stack: ["PostgreSQL", "Next.js", "Node.js"],
-      demoUrl: "#",
-      sourceUrl: "#"
-    },
-    {
-      tabName: "pos_system.cs",
-      title: "Point of Sales System",
-      desc: "A lightweight desktop POS utility tracking inventory quantities, generating transactions, and structuring relational store sales logs.",
-      stack: ["Windows Forms (C#)", "SQLite"],
-      demoUrl: "#",
-      sourceUrl: "#"
-    },
-    {
-      tabName: "expenses_tracker.html",
-      title: "Expenses Tracker",
-      desc: "A static front-end dashboard visualizing personal income patterns, savings rates, and expense ledgers.",
-      stack: ["HTML", "CSS", "JavaScript"],
-      demoUrl: "#",
-      sourceUrl: "#"
-    },
-    {
-      tabName: "rain_predict.py",
-      title: "Rain Prediction Model",
-      desc: "A predictive analytics script analyzing meteorological datasets to estimate rain probabilities using supervised Random Forest and Logistic Regression classifiers.",
-      stack: ["Python", "Pandas", "Seaborn", "NumPy", "Scikit-Learn"],
+      desc: "Designed and built a prototype full-stack platform for monitoring and simulating currency exchange transactions.",
+      stack: ["MongoDB", "Express.js", "React.js", "Node.js", "Tailwind CSS"],
       demoUrl: "#",
       sourceUrl: "#"
     }
