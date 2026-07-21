@@ -46,7 +46,7 @@ export const Experience: React.FC = () => {
               <span className="cmd">$</span> ./list_experience.sh
             </div>
 
-            <div className="exp-timeline">
+            <div className="exp-timeline reveal-stagger">
               {experiences.map((exp, idx) => (
                 <div key={idx} className="exp-item">
                   <div className="exp-dot" />

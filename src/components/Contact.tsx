@@ -24,7 +24,7 @@ export const Contact: React.FC = () => {
               Open to internships, collaborations, and interesting problems to
               solve.
             </p>
-            <div className="contact-links">
+            <div className="contact-links reveal-stagger">
               <a href="mailto:sanjanaimfernando2001@gmail.com">sanjanaimfernando2001@gmail.com</a>
               <a href="tel:+94713274105">+94 71 327 4105</a>
               <a

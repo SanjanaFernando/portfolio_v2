@@ -10,7 +10,7 @@ export const About: React.FC = () => {
           <div className="sec-rule"></div>
         </div>
         <div className="about-grid">
-          <div className="term-window about-window reveal">
+          <div className="term-window about-window reveal-left">
             <div className="term-bar">
               <span className="term-dot r"></span>
               <span className="term-dot y"></span>
@@ -24,14 +24,14 @@ export const About: React.FC = () => {
               databases, algorithms — and the front-end details that make
               software feel considered rather than just functional. <br /><br />
               Lately I've been drawn to the space where design tools like
-              <strong>Spline</strong> meet real engineering: building interfaces
+              <strong> Spline</strong> meet real engineering: building interfaces
               that feel dimensional instead of flat, without losing sight of
               performance and usability.
             </div>
           </div>
 
-          <div className="reveal">
-            <div className="stat-grid" style={{ marginBottom: '24px' }}>
+          <div className="reveal-right">
+            <div className="stat-grid reveal-stagger" style={{ marginBottom: '24px' }}>
               <div className="stat">
                 <div className="stat-num">10+</div>
                 <div className="stat-label">// projects shipped</div>
