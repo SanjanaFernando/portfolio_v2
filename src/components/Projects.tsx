@@ -5,6 +5,8 @@ interface Project {
   title: string;
   desc: string;
   stack: string[];
+  image: string;
+  isMobile?: boolean;
   demoUrl?: string;
   sourceUrl?: string;
 }
@@ -16,6 +18,7 @@ export const Projects: React.FC = () => {
       title: "Hospital Bed Allocation & Management Platform",
       desc: "Developed a full-stack optimization platform combining a Next.js dashboard with a Python backend to deploy a custom Reinforcement Learning agent, successfully automating hospital bed allocation to maximize asset utilization and reduce patient wait times.",
       stack: ["Next.js", "React.js", "Tailwind CSS", "Python", "PyTorch", "DDQN", "NumPy", "Pandas", "SciPy"],
+      image: "/projects/hospitalbedmanagement.png",
       demoUrl: "#",
       sourceUrl: "#"
     },
@@ -24,6 +27,7 @@ export const Projects: React.FC = () => {
       title: "BookTalk – AI Chat Application",
       desc: "Built a Next.js chat application featuring a clean web UI to interact with a Groq-hosted Llama model, leveraging advanced streaming capabilities.",
       stack: ["Next.js", "React.js", "TypeScript", "Tailwind CSS", "Vercel AI SDK", "Groq", "OpenAI SDK"],
+      image: "/projects/booktalk.png",
       demoUrl: "#",
       sourceUrl: "#"
     },
@@ -32,6 +36,7 @@ export const Projects: React.FC = () => {
       title: "AI-Powered Hand Gesture Virtual Mouse",
       desc: "Engineered an AI-driven computer vision application that processes real-time webcam streams to track hand landmarks and classify gestures for system control.",
       stack: ["Python", "PyTorch", "MediaPipe", "OpenCV", "Deep Learning"],
+      image: "/projects/gesture_image.png",
       demoUrl: "#",
       sourceUrl: "#"
     },
@@ -40,6 +45,7 @@ export const Projects: React.FC = () => {
       title: "Secure File Drop",
       desc: "Co-engineered a secure full-stack web application featuring a robust authentication system and granular access controls to guarantee protected file transfers, implementing proactive defenses against unauthorized access.",
       stack: ["Cryptography", "Web Security Models", "HTML", "CSS", "Git"],
+      image: "/projects/securefiledrop.png",
       demoUrl: "#",
       sourceUrl: "#"
     },
@@ -48,6 +54,7 @@ export const Projects: React.FC = () => {
       title: "E-Chess",
       desc: "Developed a full-stack web platform designed to manage and participate in competitive, real-time chess tournaments.",
       stack: ["MongoDB", "Express.js", "Vite.js", "Node.js", "Chess.js"],
+      image: "/projects/echess.png",
       demoUrl: "#",
       sourceUrl: "#"
     },
@@ -56,6 +63,8 @@ export const Projects: React.FC = () => {
       title: "Fitness Tracking Mobile Application",
       desc: "Created a mobile application for comprehensive fitness tracking, providing users with specialized meal plans, exercise tracking, and workout routines.",
       stack: ["Flutter", "Dart", "Firebase"],
+      image: "/projects/fitnessapp.png",
+      isMobile: true,
       demoUrl: "#",
       sourceUrl: "#"
     },
@@ -64,6 +73,7 @@ export const Projects: React.FC = () => {
       title: "Currency Exchange Market",
       desc: "Designed and built a prototype full-stack platform for monitoring and simulating currency exchange transactions.",
       stack: ["MongoDB", "Express.js", "React.js", "Node.js", "Tailwind CSS"],
+      image: "/projects/currencyexchange.png",
       demoUrl: "#",
       sourceUrl: "#"
     }
@@ -80,6 +90,17 @@ export const Projects: React.FC = () => {
         <div className="proj-grid">
           {projects.map((project, index) => (
             <div key={index} className="proj-card reveal">
+              {/* Project image with animated overlay */}
+              <div className={`proj-image-wrap${project.isMobile ? ' proj-image-wrap--mobile' : ''}`}>
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className={`proj-image${project.isMobile ? ' proj-image--mobile' : ''}`}
+                  loading="lazy"
+                />
+                <div className="proj-image-overlay" />
+              </div>
+
               <div className="proj-tab">
                 <span className="dot"></span>
                 {project.tabName}

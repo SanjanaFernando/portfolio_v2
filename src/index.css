@@ -1261,6 +1261,72 @@ section {
   gap: 24px;
 }
 
+/* ── Project image ─────────────────────────────────────── */
+.proj-image-wrap {
+  position: relative;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--panel-line);
+  background: var(--ink);
+}
+
+.proj-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+  transition:
+    transform 0.55s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.45s ease;
+  filter: brightness(0.75) saturate(0.8);
+}
+
+.proj-card:hover .proj-image {
+  transform: scale(1.08);
+  filter: brightness(0.5) saturate(0.6);
+}
+
+/* scan-line retro effect overlay */
+.proj-image-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(0, 0, 0, 0.08) 3px,
+      rgba(0, 0, 0, 0.08) 4px
+    ),
+    linear-gradient(
+      180deg,
+      rgba(9, 11, 20, 0) 0%,
+      rgba(9, 11, 20, 0.6) 100%
+    );
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  pointer-events: none;
+}
+
+.proj-card:hover .proj-image-overlay {
+  opacity: 1;
+}
+
+/* mobile screenshot — contain so it doesn't stretch */
+.proj-image-wrap--mobile {
+  background: #0c0f1e;
+}
+
+.proj-image--mobile {
+  object-fit: contain;
+  object-position: center center;
+}
+
 .proj-card {
   border: 1px solid var(--panel-line);
   border-radius: 10px;
@@ -1400,7 +1466,200 @@ section {
   border-bottom-color: var(--cyan);
 }
 
+/* ---------- VOLUNTEERING TWO-COLUMN LAYOUT ---------- */
+.vol-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+  align-items: center;
+}
+
+/* make the terminal panel stretch to fill the grid row */
+.vol-timeline-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.vol-timeline-panel .term-body {
+  flex: 1;
+}
+
+/* ---------- VOLUNTEERING VERTICAL CAROUSEL ---------- */
+.vol-carousel {
+  position: relative;
+  height: 600px;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid var(--panel-line);
+  background: #06080f;
+  box-shadow:
+    0 0 0 1px rgba(124, 92, 252, 0.1),
+    0 20px 60px -20px var(--violet-glow);
+  pointer-events: auto;
+}
+
+/* ── Slide track (clips overflow above/below) ── */
+.vol-track {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+/* ── Individual slide ── */
+.vol-slide {
+  position: absolute;
+  inset: 0;
+  transition:
+    transform 0.65s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity  0.65s cubic-bezier(0.4, 0, 0.2, 1),
+    filter   0.65s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: center center;
+  will-change: transform, opacity, filter;
+}
+
+.vol-slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+}
+
+/* Ken Burns slow zoom on active slide only */
+.vol-slide--active .vol-slide-img {
+  animation: kenBurns 8s ease-in-out infinite alternate;
+}
+
+@keyframes kenBurns {
+  from { transform: scale(1);    }
+  to   { transform: scale(1.07); }
+}
+
+/* dim gradient overlay on adjacent slides */
+.vol-slide-dim {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 8, 15, 0.55);
+  pointer-events: none;
+}
+
+/* caption on active slide */
+.vol-slide-caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 60px 20px 46px;
+  background: linear-gradient(to top, rgba(6, 8, 15, 0.9) 0%, transparent 100%);
+  pointer-events: none;
+}
+
+.vol-caption-text {
+  font-family: var(--mono);
+  font-size: 12.5px;
+  letter-spacing: 0.08em;
+  color: var(--text);
+  opacity: 0.9;
+}
+
+/* ── Up / Down arrow buttons ── */
+.vol-arr {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(16, 20, 42, 0.72);
+  backdrop-filter: blur(10px);
+  border: 1px solid var(--panel-line);
+  color: var(--text);
+  font-size: 11px;
+  width: 36px;
+  height: 28px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition:
+    background   0.25s ease,
+    border-color 0.25s ease,
+    color        0.25s ease;
+  z-index: 6;
+  padding: 0;
+  pointer-events: auto;
+}
+
+.vol-arr--up   { top:    8px; }
+.vol-arr--down { bottom: 36px; }
+
+.vol-arr:hover {
+  background: rgba(124, 92, 252, 0.28);
+  border-color: var(--violet);
+  color: var(--cyan);
+}
+
+/* ── Vertical dot strip (right side) ── */
+.vol-dots-v {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  z-index: 6;
+  pointer-events: auto;
+}
+
+.vol-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(231, 234, 246, 0.25);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition:
+    background  0.3s ease,
+    transform   0.3s ease,
+    box-shadow  0.3s ease,
+    height      0.3s ease,
+    border-radius 0.3s ease;
+}
+
+/* active dot stretches into a pill */
+.vol-dot--active {
+  background: var(--cyan);
+  transform: scaleY(1.0);
+  height: 20px;
+  border-radius: 3px;
+  box-shadow: 0 0 8px var(--cyan-glow);
+}
+
+.vol-dot:not(.vol-dot--active):hover {
+  background: rgba(231, 234, 246, 0.55);
+  transform: scale(1.3);
+}
+
+/* ── Progress bar ── */
+.vol-progress-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--violet), var(--cyan));
+  box-shadow: 0 0 8px var(--cyan-glow);
+  animation: volProgress linear forwards;
+  z-index: 7;
+  pointer-events: none;
+}
+
+@keyframes volProgress {
+  from { width: 0%; }
+  to   { width: 100%; }
+}
+
 /* ---------- EXPERIENCE ---------- */
+
 .exp-timeline {
   display: flex;
   flex-direction: column;
@@ -1641,6 +1900,15 @@ footer::before {
 
   .proj-grid {
     grid-template-columns: 1fr;
+  }
+
+  .vol-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .vol-carousel {
+    min-height: 320px;
+    height: 320px;
   }
 
   .nav-links {
