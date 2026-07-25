@@ -5,7 +5,7 @@ export const Contact: React.FC = () => {
     <section id="contact">
       <div className="wrap">
         <div className="sec-head reveal">
-          <span className="sec-tag">05</span>
+          <span className="sec-tag">06</span>
           <h2 className="sec-title">/contact</h2>
           <div className="sec-rule"></div>
         </div>

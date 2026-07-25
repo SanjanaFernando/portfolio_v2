@@ -23,11 +23,12 @@ export const Navbar: React.FC = () => {
   };
 
   const navItems = [
-    { href: '#about',      label: 'about' },
-    { href: '#experience', label: 'experience' },
-    { href: '#skills',     label: 'skills' },
-    { href: '#projects',   label: 'projects' },
-    { href: '#contact',    label: 'contact' },
+    { href: '#about',        label: 'about' },
+    { href: '#experience',   label: 'experience' },
+    { href: '#skills',       label: 'skills' },
+    { href: '#projects',     label: 'projects' },
+    { href: '#volunteering', label: 'volunteering' },
+    { href: '#contact',      label: 'contact' },
   ];
 
   return (
