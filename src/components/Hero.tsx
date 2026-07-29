@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 const NAME = 'Sanjana Fernando';
 const ROLE = '> Computer Engineering student · Software Engineer';
-const PHOTOS = ['/me1.png', '/me2.png', '/me3.png'];
+const PHOTOS = ['/me1.png', '/me2.png'];
 
 export const Hero: React.FC = () => {
   // ── Entrance animation ────────────────────────────────────────────────
@@ -142,10 +142,9 @@ export const Hero: React.FC = () => {
             </div>
 
             <p className={`hero-sub${visible ? ' hero-sub-in' : ''}`} style={{ marginTop: '22px' }}>
-              Computer Science student who likes building things end to end —
-              from clean backend logic to interfaces that feel alive. Currently
-              sharpening skills in full-stack development and exploring where 3D
-              and web design meet.
+              Computer Engineering undergraduate who builds things end to end
+              from robust backend systems and ML pipelines to interfaces that
+              feel fast, clean, and intentional.
             </p>
 
             <div className={`hero-cta${visible ? ' hero-cta-in' : ''}`}>
@@ -154,6 +153,13 @@ export const Hero: React.FC = () => {
               </a>
               <a href="#contact" className="btn btn-ghost">
                 <span className="glitch" data-text="Get in touch">Get in touch</span>
+              </a>
+              <a
+                href="/Sanjana_Fernando_CV.pdf"
+                download
+                className="btn btn-ghost"
+              >
+                <span className="glitch" data-text="Download CV ↓">Download CV ↓</span>
               </a>
             </div>
           </div>

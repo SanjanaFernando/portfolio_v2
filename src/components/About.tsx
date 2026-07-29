@@ -20,11 +20,12 @@ export const About: React.FC = () => {
             <div className="term-body">
               I'm <strong>Sanjana Fernando</strong>, a Computer Engineering undergraduate
               with a strong foundation in data structures, algorithms, full-stack development,
-              and machine learning. I enjoy building responsive applications and collaborating in agile teams to
-              deliver scalable, secure, and user-focused solutions. <br /><br />
-              I split my time between backend logic — APIs, databases, algorithms — and the front-end details that make
-              software feel considered. Lately I've been drawn to the space where design tools like
-              <strong> Spline</strong> meet real engineering.
+              and machine learning. I enjoy building responsive applications and collaborating
+              in agile teams to deliver scalable, secure, and user-focused solutions. <br /><br />
+              I balance backend precision — APIs, databases, and system design — with a sharp
+              eye for front-end detail that makes software feel polished and intentional.
+              Whether it's training a model, engineering a REST API, or crafting an
+              interactive UI, I bring the same focus: <strong>build things that work beautifully</strong>.
             </div>
           </div>
 
@@ -43,8 +44,8 @@ export const About: React.FC = () => {
                 <div className="stat-label">// certifications</div>
               </div>
               <div className="stat">
-                <div className="stat-num">3+</div>
-                <div className="stat-label">// leadership roles</div>
+                <div className="stat-num">∞</div>
+                <div className="stat-label">// curiosity</div>
               </div>
             </div>
 

@@ -30,7 +30,7 @@ const App: React.FC = () => {
     const handleMouseMove = (e: MouseEvent) => {
       if (cursorGlowRef.current) {
         cursorGlowRef.current.style.left = `${e.clientX}px`;
-        cursorGlowRef.current.style.top  = `${e.clientY}px`;
+        cursorGlowRef.current.style.top = `${e.clientY}px`;
       }
     };
     window.addEventListener('mousemove', handleMouseMove, { passive: true });
