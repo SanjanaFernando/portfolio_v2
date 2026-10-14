@@ -28,11 +28,11 @@ export const Contact: React.FC = () => {
               <a href="mailto:w.s.fernando.se@gmail.com">w.s.fernando.se@gmail.com</a>
               <a href="tel:+94713274105">+94 713274105</a>
               <a
-                href="https://linkedin.com/in/sanjana-fernando"
+                href="https://linkedin.com/in/sanjana-imesh-fernando"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                linkedin.com/in/sanjana-fernando
+                linkedin.com/in/sanjana-imesh-fernando
               </a>
               <a
                 href="https://github.com/SanjanaFernando"
