@@ -1,4 +1,9 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface Project {
   tabName: string;
@@ -11,6 +16,8 @@ interface Project {
 }
 
 export const Projects: React.FC = () => {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [activeProject, setActiveProject] = useState(0);
   const projects: Project[] = [
     {
       tabName: "bed_allocation_rl.py",
@@ -71,46 +78,110 @@ export const Projects: React.FC = () => {
     }
   ];
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    const chapters = gsap.utils.toArray<HTMLElement>(section.querySelectorAll('.project-chapter'));
+    const chapterList = section.querySelector('.project-chapters');
+    if (!chapterList) return;
+    const triggers = chapters.map((chapter, index) => ScrollTrigger.create({
+      trigger: chapter,
+      start: 'top center',
+      end: 'bottom center',
+      onEnter: () => setActiveProject(index),
+      onEnterBack: () => setActiveProject(index),
+    }));
+    const progressTrigger = ScrollTrigger.create({
+      trigger: chapterList,
+      start: 'top center',
+      end: 'bottom center',
+      onUpdate: (self) => {
+        const progress = section.querySelector<HTMLElement>('.project-progress-fill');
+        if (progress) progress.style.transform = `scaleX(${self.progress})`;
+      },
+    });
+
+    return () => {
+      triggers.forEach((trigger) => trigger.kill());
+      progressTrigger.kill();
+    };
+  }, []);
+
+  const selectedProject = projects[activeProject];
+
   return (
-    <section id="projects">
+    <section id="projects" className="projects-section" ref={sectionRef}>
       <div className="wrap">
         <div className="sec-head reveal">
           <span className="sec-tag">04</span>
           <h2 className="sec-title">/projects</h2>
           <div className="sec-rule"></div>
         </div>
-        <div className="proj-grid">
-          {projects.map((project, index) => (
-            <div key={index} className="proj-card reveal">
-              {/* Project image with animated overlay */}
-              <div className={`proj-image-wrap${project.isMobile ? ' proj-image-wrap--mobile' : ''}`}>
-                <img
-                  src={project.image}
-                  alt={project.title}
-                  className={`proj-image${project.isMobile ? ' proj-image--mobile' : ''}`}
-                  loading="lazy"
-                />
-                <div className="proj-image-overlay" />
-              </div>
-
-              <div className="proj-tab">
-                <span className="dot"></span>
-                {project.tabName}
-              </div>
-              <div className="proj-body">
-                <div className="proj-title">{project.title}</div>
-                <p className="proj-desc">{project.desc}</p>
-                <div className="proj-stack">
-                  {project.stack.map((tech, tIdx) => (
-                    <span key={tIdx} className="chip">{tech}</span>
-                  ))}
-                </div>
-                <div className="proj-links">
-                  <a href={project.sourceUrl} target="_blank" rel="noopener noreferrer">Source</a>
-                </div>
-              </div>
+        <p className="projects-intro">A selection of intelligent systems, useful tools, and experiments built for the real world.</p>
+        <div className="project-scrolly">
+          <div className="project-sticky">
+            <div className="project-story-meta">
+              <span>SELECTED BUILDS</span>
+              <span>{String(activeProject + 1).padStart(2, '0')} <i>/</i> {String(projects.length).padStart(2, '0')}</span>
             </div>
-          ))}
+            <div className="project-progress"><span className="project-progress-fill" /></div>
+            <AnimatePresence mode="wait">
+              <motion.article
+                className="proj-card project-feature"
+                key={selectedProject.tabName}
+                initial={{ opacity: 0, y: 22, scale: 0.98 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, y: -14, scale: 0.985 }}
+                transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+              >
+                <div className={`proj-image-wrap${selectedProject.isMobile ? ' proj-image-wrap--mobile' : ''}`}>
+                  <motion.img
+                    key={selectedProject.image}
+                    src={selectedProject.image}
+                    alt={selectedProject.title}
+                    className={`proj-image${selectedProject.isMobile ? ' proj-image--mobile' : ''}`}
+                    initial={{ scale: 1.06, opacity: 0.6 }}
+                    animate={{ scale: 1, opacity: 1 }}
+                    transition={{ duration: 0.55 }}
+                  />
+                  <div className="proj-image-overlay" />
+                </div>
+                <div className="proj-tab"><span className="dot" />{selectedProject.tabName}</div>
+                <div className="proj-body">
+                  <div className="proj-title">{selectedProject.title}</div>
+                  <p className="proj-desc">{selectedProject.desc}</p>
+                  <div className="proj-stack">
+                    {selectedProject.stack.map((tech) => <span key={tech} className="chip">{tech}</span>)}
+                  </div>
+                  <div className="proj-links">
+                    <a href={selectedProject.sourceUrl} target="_blank" rel="noopener noreferrer">View source ↗</a>
+                  </div>
+                </div>
+              </motion.article>
+            </AnimatePresence>
+            <div className="project-sticky-caption"><span className="project-live-dot" />SCROLL TO EXPLORE</div>
+          </div>
+
+          <div className="project-chapters" aria-label="Project chapters">
+            {projects.map((project, index) => (
+              <button
+                id={`project-chapter-${index}`}
+                className={`project-chapter${activeProject === index ? ' is-active' : ''}`}
+                key={project.tabName}
+                type="button"
+                onClick={() => document.getElementById(`project-chapter-${index}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })}
+              >
+                <span className="project-chapter-index">{String(index + 1).padStart(2, '0')}</span>
+                <span className="project-chapter-copy">
+                  <span className="project-chapter-file">{project.tabName}</span>
+                  <span className="project-chapter-title">{project.title}</span>
+                  <span className="project-chapter-summary">{project.desc}</span>
+                </span>
+                <span className="project-chapter-arrow">↗</span>
+              </button>
+            ))}
+          </div>
         </div>
       </div>
     </section>

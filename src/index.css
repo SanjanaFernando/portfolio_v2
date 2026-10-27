@@ -82,13 +82,13 @@ body::before {
   pointer-events: none;
   background:
     radial-gradient(circle at 50% 35%,
-      rgba(9, 11, 20, 0),
-      rgba(9, 11, 20, 0.25) 75%),
+      rgba(9, 11, 20, 0.2),
+      rgba(9, 11, 20, 0.55) 75%),
     linear-gradient(180deg,
-      rgba(9, 11, 20, 0.35) 0%,
-      rgba(9, 11, 20, 0.05) 18%,
-      rgba(9, 11, 20, 0.05) 82%,
-      rgba(9, 11, 20, 0.55) 100%);
+      rgba(9, 11, 20, 0.55) 0%,
+      rgba(9, 11, 20, 0.3) 18%,
+      rgba(9, 11, 20, 0.3) 82%,
+      rgba(9, 11, 20, 0.7) 100%);
 }
 
 /* ---------- SCROLL PROGRESS BAR ---------- */
@@ -1517,12 +1517,302 @@ section {
   border-bottom-color: var(--cyan);
 }
 
+/* ---------- MIDNIGHT AI PROJECTS THEME ---------- */
+#projects.projects-section {
+  position: relative;
+  background:
+    radial-gradient(ellipse at 12% 8%, rgba(37, 99, 235, 0.14), transparent 38%),
+    radial-gradient(ellipse at 88% 54%, rgba(34, 211, 238, 0.08), transparent 34%);
+}
+
+#projects .sec-tag {
+  color: #22d3ee;
+  border-color: rgba(34, 211, 238, 0.35);
+  background: rgba(8, 28, 55, 0.78);
+}
+
+#projects .sec-title {
+  color: #e7f4ff;
+  text-shadow: 0 0 24px rgba(37, 99, 235, 0.25);
+}
+
+#projects .sec-rule {
+  background: linear-gradient(90deg, #2563eb, #22d3ee, transparent);
+}
+
+.projects-intro {
+  max-width: 620px;
+  margin: -24px 0 34px;
+  color: #9bb2ce;
+  font-size: 15px;
+  line-height: 1.75;
+}
+
+#projects .proj-grid {
+  gap: 22px;
+}
+
+#projects .proj-card {
+  border: 1px solid rgba(79, 148, 255, 0.2);
+  border-radius: 14px;
+  background: linear-gradient(145deg, rgba(11, 27, 52, 0.96), rgba(5, 15, 32, 0.98));
+  box-shadow: 0 14px 38px rgba(1, 8, 22, 0.28), inset 0 1px rgba(187, 224, 255, 0.04);
+}
+
+#projects .proj-card::before {
+  background: linear-gradient(105deg, transparent, rgba(37, 99, 235, 0.13), rgba(34, 211, 238, 0.09), transparent);
+}
+
+#projects .proj-card:hover {
+  border-color: rgba(34, 211, 238, 0.72);
+  box-shadow: 0 20px 52px rgba(0, 8, 24, 0.55), 0 0 28px rgba(37, 99, 235, 0.2);
+}
+
+#projects .proj-image-wrap {
+  height: 210px;
+  border-bottom-color: rgba(79, 148, 255, 0.19);
+  background: #071326;
+}
+
+#projects .proj-image {
+  filter: brightness(0.82) saturate(0.88);
+}
+
+#projects .proj-card:hover .proj-image {
+  filter: brightness(0.96) saturate(1.08);
+}
+
+#projects .proj-image-overlay {
+  opacity: 1;
+  background: linear-gradient(180deg, transparent 58%, rgba(3, 12, 28, 0.44));
+}
+
+#projects .proj-tab {
+  color: #86a6ca;
+  border-bottom-color: rgba(79, 148, 255, 0.16);
+  background: rgba(11, 31, 59, 0.72);
+}
+
+#projects .proj-tab .dot {
+  background: #22d3ee;
+  box-shadow: 0 0 9px rgba(34, 211, 238, 0.7);
+}
+
+#projects .proj-title {
+  color: #e8f3ff;
+}
+
+#projects .proj-card:hover .proj-title {
+  color: #67e8f9;
+}
+
+#projects .proj-desc {
+  color: #9aacc4;
+}
+
+#projects .chip {
+  color: #8bb8ff;
+  border-color: rgba(59, 130, 246, 0.34);
+  background: rgba(37, 99, 235, 0.07);
+}
+
+#projects .chip:hover {
+  color: #67e8f9;
+  border-color: rgba(34, 211, 238, 0.65);
+  background: rgba(34, 211, 238, 0.08);
+}
+
+#projects .proj-links a {
+  color: #67e8f9;
+}
+
+#projects .proj-links a:hover {
+  border-bottom-color: #67e8f9;
+}
+
+.project-scrolly {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(280px, 0.82fr);
+  gap: clamp(38px, 7vw, 108px);
+  align-items: start;
+}
+
+.project-sticky {
+  position: sticky;
+  top: 94px;
+  min-width: 0;
+}
+
+.project-story-meta,
+.project-sticky-caption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: #6f91b8;
+}
+
+.project-story-meta {
+  margin-bottom: 12px;
+}
+
+.project-story-meta span:last-child {
+  color: #c4e8ff;
+  font-size: 12px;
+}
+
+.project-story-meta i {
+  color: #3b82f6;
+  font-style: normal;
+  padding: 0 4px;
+}
+
+.project-progress {
+  height: 2px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  background: rgba(96, 165, 250, 0.17);
+}
+
+.project-progress-fill {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(90deg, #2563eb, #22d3ee);
+  box-shadow: 0 0 12px rgba(34, 211, 238, 0.6);
+}
+
+#projects .project-feature {
+  will-change: transform, opacity;
+}
+
+#projects .project-feature .proj-image-wrap {
+  height: clamp(190px, 25vw, 300px);
+}
+
+.project-sticky-caption {
+  justify-content: flex-start;
+  gap: 9px;
+  margin-top: 14px;
+  color: #5d7c9f;
+}
+
+.project-live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #22d3ee;
+  box-shadow: 0 0 9px rgba(34, 211, 238, 0.8);
+}
+
+.project-chapters {
+  border-top: 1px solid rgba(79, 148, 255, 0.16);
+}
+
+.project-chapter {
+  display: grid;
+  width: 100%;
+  min-height: 0;
+  grid-template-columns: 34px minmax(0, 1fr) 20px;
+  align-items: center;
+  gap: 12px;
+  padding: 20px 8px;
+  border: 0;
+  border-bottom: 1px solid rgba(79, 148, 255, 0.16);
+  border-radius: 0;
+  text-align: left;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+  transition: background 0.3s ease, padding 0.3s ease;
+}
+
+.project-chapter:hover,
+.project-chapter.is-active {
+  padding-inline: 16px;
+  background: linear-gradient(90deg, rgba(37, 99, 235, 0.13), rgba(34, 211, 238, 0.035), transparent);
+}
+
+.project-chapter-index {
+  align-self: start;
+  padding-top: 3px;
+  color: #4d6d91;
+  font-family: var(--mono);
+  font-size: 12px;
+  transition: color 0.25s ease;
+}
+
+.project-chapter.is-active .project-chapter-index {
+  color: #22d3ee;
+}
+
+.project-chapter-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.project-chapter-file {
+  color: #688bb2;
+  font-family: var(--mono);
+  font-size: 11px;
+}
+
+.project-chapter-title {
+  max-width: 330px;
+  color: #a9bbd1;
+  font-family: var(--display);
+  font-size: clamp(17px, 1.7vw, 22px);
+  font-weight: 500;
+  line-height: 1.35;
+  transition: color 0.25s ease;
+}
+
+.project-chapter-summary {
+  display: -webkit-box;
+  max-width: 410px;
+  overflow: hidden;
+  color: #8299b5;
+  font-size: 12px;
+  line-height: 1.55;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.project-chapter.is-active .project-chapter-title,
+.project-chapter:hover .project-chapter-title {
+  color: #eef8ff;
+}
+
+.project-chapter-arrow {
+  color: #4d6d91;
+  opacity: 0;
+  transform: translate(-4px, 4px);
+  transition: opacity 0.25s ease, transform 0.25s ease, color 0.25s ease;
+}
+
+.project-chapter.is-active .project-chapter-arrow,
+.project-chapter:hover .project-chapter-arrow {
+  color: #67e8f9;
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.project-chapter:focus-visible {
+  outline: 2px solid #22d3ee;
+  outline-offset: -3px;
+}
+
 /* ---------- VOLUNTEERING TWO-COLUMN LAYOUT ---------- */
 .vol-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 32px;
-  align-items: center;
+  align-items: start;
 }
 
 /* make the terminal panel stretch to fill the grid row */
@@ -1537,7 +1827,9 @@ section {
 
 /* ---------- VOLUNTEERING VERTICAL CAROUSEL ---------- */
 .vol-carousel {
-  position: relative;
+  position: sticky;
+  top: 92px;
+  align-self: start;
   height: 600px;
   border-radius: 14px;
   overflow: hidden;
@@ -1972,12 +2264,67 @@ footer::before {
   }
 
   .vol-carousel {
+    position: relative;
+    top: auto;
     min-height: 320px;
     height: 320px;
   }
 
   .nav-links {
     display: none;
+  }
+
+  .project-scrolly {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+  }
+
+  .project-sticky {
+    top: 72px;
+    z-index: 4;
+    padding-bottom: 10px;
+    background: linear-gradient(180deg, rgba(8, 17, 34, 0.98) 82%, rgba(8, 17, 34, 0));
+  }
+
+  #projects .project-feature .proj-image-wrap {
+    height: clamp(150px, 28vw, 220px);
+  }
+
+  #projects .project-feature .proj-desc {
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+  }
+
+  .project-chapter {
+    padding-block: 18px;
+  }
+}
+
+@media (max-width: 600px) {
+  .projects-intro {
+    margin-top: -18px;
+    font-size: 14px;
+  }
+
+  #projects .project-feature .proj-image-wrap {
+    height: 150px;
+  }
+
+  #projects .project-feature .proj-body {
+    padding: 16px 16px 20px;
+  }
+
+  #projects .project-feature .proj-stack {
+    max-height: 54px;
+    overflow: hidden;
+  }
+
+  .project-chapter {
+    grid-template-columns: 28px minmax(0, 1fr) 18px;
+    gap: 8px;
+    padding-inline: 2px;
   }
 }
 
