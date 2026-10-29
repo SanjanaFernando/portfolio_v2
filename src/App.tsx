@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { Navbar } from './components/Navbar';
-import { SplineBackground } from './components/SplineBackground';
+import { ThreeJSBackground } from './components/ThreeJSBackground';
 import { Hero } from './components/Hero';
 import { About } from './components/About';
 import { Experience } from './components/Experience';
@@ -114,7 +114,7 @@ const App: React.FC = () => {
       {/* Cursor ambient glow */}
       <div className="cursor-glow" ref={cursorGlowRef} />
 
-      <SplineBackground />
+      <ThreeJSBackground />
       <Navbar />
       <Hero />
       <About />

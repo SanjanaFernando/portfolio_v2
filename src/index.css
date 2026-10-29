@@ -55,42 +55,6 @@ body::before {
   }
 }
 
-/* ---------- FULL-PAGE SPLINE BACKGROUND ---------- */
-.bg-spline {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  overflow: hidden;
-}
-
-.bg-spline-stage {
-  width: 100%;
-  height: 100%;
-  transform: scale(1.5);
-  transform-origin: center center;
-}
-
-.bg-spline-stage>* {
-  width: 100%;
-  height: 100%;
-}
-
-.bg-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  background:
-    radial-gradient(circle at 50% 35%,
-      rgba(9, 11, 20, 0.2),
-      rgba(9, 11, 20, 0.55) 75%),
-    linear-gradient(180deg,
-      rgba(9, 11, 20, 0.55) 0%,
-      rgba(9, 11, 20, 0.3) 18%,
-      rgba(9, 11, 20, 0.3) 82%,
-      rgba(9, 11, 20, 0.7) 100%);
-}
-
 /* ---------- SCROLL PROGRESS BAR ---------- */
 .scroll-bar {
   position: fixed;
@@ -143,8 +107,7 @@ a {
   z-index: 3;
 }
 
-/* Let mouse events pass through empty layout wrappers to the Spline canvas
-underneath. Interactive content re-enables pointer-events below. */
+/* Keep empty layout wrappers transparent to pointer events while the background tracks the cursor. */
 header.hero,
 section,
 footer,
@@ -2349,7 +2312,6 @@ body::before {
   background-image: linear-gradient(rgba(76, 143, 220, 0.045) 1px, transparent 1px),
     linear-gradient(90deg, rgba(76, 143, 220, 0.045) 1px, transparent 1px);
 }
-.bg-spline, .bg-overlay { display: none; }
 .cursor-glow { background: radial-gradient(circle, rgba(87, 164, 229, 0.09), transparent 70%); }
 ::selection { background: #cce5ff; color: #173454; }
 :focus-visible { outline-color: #398fd1; }
@@ -2370,7 +2332,7 @@ nav, nav.scrolled {
 
 .hero {
   background: radial-gradient(ellipse at 78% 38%, rgba(194, 224, 251, 0.44), transparent 34%),
-    linear-gradient(180deg, #fff 0%, #f7faff 100%);
+    linear-gradient(180deg, rgba(255, 255, 255, 0.42), rgba(247, 250, 255, 0.22));
 }
 .hero-sub { color: #58718c; text-shadow: none; }
 .hero-name { background-image: linear-gradient(100deg, #19324d, #3979c8 72%, #62a9df); }
@@ -2447,7 +2409,21 @@ footer::before { background: linear-gradient(90deg, transparent, #9bc6e9, #cce3f
 }
 
 /* Override the projects section's former dark showcase styling. */
-#projects.projects-section { background: linear-gradient(180deg, #f3f8fe, #fff 72%); }
+#projects.projects-section { background: linear-gradient(180deg, rgba(243, 248, 254, 0.72), rgba(255, 255, 255, 0.48) 72%); }
 #projects .sec-tag { color: #4388c5; border-color: #d7e7f5; background: #eef6fd; }
 #projects .sec-title { color: #19324d; text-shadow: none; }
 #projects .sec-rule { background: linear-gradient(90deg, #5c9bd3, #c5e0f8, transparent); }
+
+.interactive-grid-background {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.interactive-grid-background canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
