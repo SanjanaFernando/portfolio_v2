@@ -7,8 +7,19 @@ export const ThreeJSBackground = () => {
   useEffect(() => {
     if (!canvasRef.current) return;
     const experience = new Orchestrator(canvasRef.current);
+    const updateTheme = () => {
+      experience.stage.setTheme(
+        document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light',
+      );
+    };
 
-    return () => experience.destroy();
+    updateTheme();
+    window.addEventListener('portfolio-theme-change', updateTheme);
+
+    return () => {
+      window.removeEventListener('portfolio-theme-change', updateTheme);
+      experience.destroy();
+    };
   }, []);
 
   return (

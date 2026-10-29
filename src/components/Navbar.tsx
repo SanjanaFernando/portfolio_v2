@@ -1,7 +1,18 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useLayoutEffect, useRef, useState } from 'react';
 
 export const Navbar: React.FC = () => {
   const navRef = useRef<HTMLElement>(null);
+  const [darkMode, setDarkMode] = useState(
+    () => window.localStorage.getItem('portfolio-theme') === 'dark',
+  );
+
+  useLayoutEffect(() => {
+    document.documentElement.dataset.theme = darkMode ? 'dark' : 'light';
+    window.localStorage.setItem('portfolio-theme', darkMode ? 'dark' : 'light');
+    window.dispatchEvent(new CustomEvent('portfolio-theme-change', {
+      detail: darkMode ? 'dark' : 'light',
+    }));
+  }, [darkMode]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -51,6 +62,15 @@ export const Navbar: React.FC = () => {
             </li>
           ))}
         </ul>
+        <button
+          type="button"
+          className="theme-toggle"
+          onClick={() => setDarkMode((isDark) => !isDark)}
+          aria-label={`Switch to ${darkMode ? 'light' : 'dark'} mode`}
+          title={`Switch to ${darkMode ? 'light' : 'dark'} mode`}
+        >
+          <span aria-hidden="true">{darkMode ? '☀' : '☾'}</span>
+        </button>
       </div>
     </nav>
   );

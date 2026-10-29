@@ -87,6 +87,24 @@ export default class Stage {
         this.scene.add(this.shadowCameraHelper);
     }
 
+    setTheme(theme) {
+        const isDark = theme === "dark";
+        this.params.colorBase = isDark ? "#101523" : "#ffffff";
+        this.params.colorHigh = isDark ? "#26344d" : "#0055ff";
+        this.scene.background = new THREE.Color(
+            isDark ? "#080a12" : this.params.colorBase,
+        ).multiplyScalar(isDark ? 1 : 0.5);
+
+        this.ambientLight.intensity = isDark ? 0.3 : this.lightingParams.ambientIntensity;
+        this.directionalLight.intensity = isDark ? 1.4 : this.lightingParams.directionalIntensity;
+        this.directionalLight2.intensity = isDark ? 0.35 : this.lightingParams.directional2Intensity;
+
+        if (this.shaderRef) {
+            this.shaderRef.uniforms.uColorBase.value.set(this.params.colorBase);
+            this.shaderRef.uniforms.uColorHigh.value.set(this.params.colorHigh);
+        }
+    }
+
     // This is shared between the main shader and the depth shader to ensure consistent wave deformation in both passes.
     overrideVertexShader(vertexShader) {
         return vertexShader
