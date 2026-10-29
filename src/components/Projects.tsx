@@ -36,6 +36,13 @@ export const Projects: React.FC = () => {
       sourceUrl: "https://github.com/SanjanaFernando/booktalk"
     },
     {
+      tabName: "bidpilot.py",
+      title: "BidPilot – AI-Powered RFP & Tender Proposal Platform",
+      desc: "Built a LangGraph multi-agent RAG workflow with Python and FastAPI to automate RFP parsing, semantic knowledge retrieval, and compliance-checked bid generation, paired with a Next.js dashboard for end-to-end proposal automation.",
+      stack: ["Python", "FastAPI", "LangGraph", "LangChain", "Google Gemini", "Supabase", "PostgreSQL", "pgvector", "PDFPlumber", "Next.js", "TypeScript"],
+      image: "/projects/gesture_image.png",
+    },
+    {
       tabName: "virtual_mouse.py",
       title: "AI-Powered Hand Gesture Virtual Mouse",
       desc: "Engineered an AI-driven computer vision application that processes real-time webcam streams to track hand landmarks and classify gestures for system control.",
