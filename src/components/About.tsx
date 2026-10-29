@@ -10,7 +10,7 @@ export const About: React.FC = () => {
           <div className="sec-rule"></div>
         </div>
         <div className="about-grid">
-          <div className="term-window about-window reveal-left">
+          <div className="term-window about-window reveal-left" data-cartoon>
             <div className="term-bar">
               <span className="term-dot r"></span>
               <span className="term-dot y"></span>

@@ -122,7 +122,9 @@ nav,
 .stat-grid,
 .skills-tags,
 .proj-grid,
-.contact-window {
+.contact-window,
+.proj-card,
+.project-chapter {
   pointer-events: auto;
 }
 
@@ -2337,7 +2339,7 @@ nav, nav.scrolled {
 .hero-sub { color: #58718c; text-shadow: none; }
 .hero-name { background-image: linear-gradient(100deg, #19324d, #3979c8 72%, #62a9df); }
 .term-window, .term-window:hover {
-  background: rgba(255, 255, 255, 0.94);
+  background: #fff;
   border-color: #dce9f8;
   box-shadow: 0 20px 60px rgba(46, 91, 138, 0.1);
 }
@@ -2426,4 +2428,50 @@ footer::before { background: linear-gradient(90deg, transparent, #9bc6e9, #cce3f
   display: block;
   width: 100%;
   height: 100%;
+}
+
+.cartoon-hover-popup {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  transform: rotate(var(--cartoon-angle, 0deg));
+  transform-origin: bottom center;
+  filter: drop-shadow(0 12px 18px rgba(35, 77, 119, 0.18));
+}
+
+.cartoon-hover-active {
+  position: relative;
+  z-index: 3;
+}
+
+.hero-left.cartoon-hover-active {
+  z-index: 5;
+}
+
+.cartoon-hover-popup img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform-origin: bottom center;
+  animation: cartoon-pop-in 360ms cubic-bezier(0.2, 1.5, 0.5, 1) both,
+    cartoon-float 2.4s ease-in-out 360ms infinite;
+}
+
+@keyframes cartoon-pop-in {
+  from { opacity: 0; transform: translateY(16px) scale(0.68) rotate(-5deg); }
+  to { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
+}
+
+@keyframes cartoon-float {
+  0%, 100% { transform: translateY(0) rotate(0); }
+  50% { transform: translateY(-6px) rotate(1deg); }
+}
+
+@media (max-width: 600px) {
+  .cartoon-hover-popup { scale: 0.78; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cartoon-hover-popup img { animation: none; }
 }

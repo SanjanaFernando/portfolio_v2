@@ -9,6 +9,7 @@ import { Projects } from './components/Projects';
 import { Volunteering } from './components/Volunteering';
 import { Contact } from './components/Contact';
 import { Footer } from './components/Footer';
+import { CartoonHoverPopup } from './components/CartoonHoverPopup';
 import './index.css';
 
 const App: React.FC = () => {
@@ -124,6 +125,7 @@ const App: React.FC = () => {
       <Volunteering />
       <Contact />
       <Footer />
+      <CartoonHoverPopup />
     </>
   );
 };

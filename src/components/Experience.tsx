@@ -34,7 +34,7 @@ export const Experience: React.FC = () => {
           <h2 className="sec-title">/experience</h2>
           <div className="sec-rule"></div>
         </div>
-        <div className="term-window contact-window reveal">
+        <div className="term-window contact-window reveal" data-cartoon>
           <div className="term-bar">
             <span className="term-dot r"></span>
             <span className="term-dot y"></span>

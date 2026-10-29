@@ -36,7 +36,7 @@ export const Skills: React.FC = () => {
           <h2 className="sec-title">/skills</h2>
           <div className="sec-rule"></div>
         </div>
-        <div className="term-window pkg-window reveal">
+        <div className="term-window pkg-window reveal" data-cartoon>
           <div className="term-bar">
             <span className="term-dot r"></span>
             <span className="term-dot y"></span>

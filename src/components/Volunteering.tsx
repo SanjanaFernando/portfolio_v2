@@ -126,7 +126,7 @@ export const Volunteering: React.FC = () => {
         <div className="vol-layout">
 
           {/* LEFT — Activity timeline */}
-          <div className="term-window contact-window reveal vol-timeline-panel">
+          <div className="term-window contact-window reveal vol-timeline-panel" data-cartoon>
             <div className="term-bar">
               <span className="term-dot r"></span>
               <span className="term-dot y"></span>

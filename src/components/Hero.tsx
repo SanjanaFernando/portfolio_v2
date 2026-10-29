@@ -117,7 +117,7 @@ export const Hero: React.FC = () => {
 
           {/* ── LEFT: terminal card ───────────────────────────────────── */}
           <div className={`hero-left${visible ? ' hero-left-in' : ''}`}>
-            <div className="term-window hero-term">
+            <div className="term-window hero-term" data-cartoon>
               <div className="term-bar">
                 <span className="term-dot r" />
                 <span className="term-dot y" />
