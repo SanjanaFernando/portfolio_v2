@@ -20,6 +20,7 @@ interface PopupState {
   width: number;
   height: number;
   angle: number;
+  leaving: boolean;
 }
 
 export const CartoonHoverPopup = () => {
@@ -27,17 +28,25 @@ export const CartoonHoverPopup = () => {
 
   useEffect(() => {
     let activeTarget: HTMLElement | null = null;
+    let hideTimer: ReturnType<typeof setTimeout> | null = null;
 
     const getTarget = (target: EventTarget | null) =>
       target instanceof Element ? target.closest<HTMLElement>('[data-cartoon]') : null;
 
+    const cancelHide = () => {
+      if (hideTimer) clearTimeout(hideTimer);
+      hideTimer = null;
+    };
+
     const clearActive = () => {
+      cancelHide();
       activeTarget?.classList.remove('cartoon-hover-active');
       activeTarget?.closest('.hero-left')?.classList.remove('cartoon-hover-active');
       activeTarget = null;
     };
 
     const showFor = (target: HTMLElement) => {
+      cancelHide();
       if (activeTarget !== target) {
         clearActive();
         activeTarget = target;
@@ -67,12 +76,18 @@ export const CartoonHoverPopup = () => {
         width,
         height,
         angle: ANGLES[index % ANGLES.length],
+        leaving: false,
       });
     };
 
-    const hide = () => {
-      clearActive();
-      setPopup(null);
+    const scheduleHide = () => {
+      cancelHide();
+      setPopup((current) => current ? { ...current, leaving: true } : current);
+      hideTimer = setTimeout(() => {
+        hideTimer = null;
+        clearActive();
+        setPopup(null);
+      }, 180);
     };
 
     const handlePointerOver = (event: PointerEvent) => {
@@ -80,8 +95,12 @@ export const CartoonHoverPopup = () => {
       const target = getTarget(event.target);
       if (target) {
         if (target !== activeTarget) showFor(target);
+        else {
+          cancelHide();
+          setPopup((current) => current?.leaving ? { ...current, leaving: false } : current);
+        }
       } else {
-        hide();
+        scheduleHide();
       }
     };
 
@@ -90,7 +109,7 @@ export const CartoonHoverPopup = () => {
       const nextTarget = getTarget(event.relatedTarget);
       if (nextTarget === activeTarget || (nextTarget && activeTarget.contains(nextTarget))) return;
       if (event.relatedTarget instanceof Node && activeTarget.contains(event.relatedTarget)) return;
-      hide();
+      scheduleHide();
     };
 
     const handleFocus = (event: FocusEvent) => {
@@ -99,7 +118,7 @@ export const CartoonHoverPopup = () => {
     };
 
     const handleBlur = (event: FocusEvent) => {
-      if (activeTarget && event.target instanceof Node && activeTarget.contains(event.target)) hide();
+      if (activeTarget && event.target instanceof Node && activeTarget.contains(event.target)) scheduleHide();
     };
 
     const reposition = () => {
@@ -126,7 +145,7 @@ export const CartoonHoverPopup = () => {
 
   return createPortal(
     <div
-      className="cartoon-hover-popup"
+      className={`cartoon-hover-popup${popup.leaving ? ' cartoon-hover-popup--leaving' : ''}`}
       style={{
         left: popup.left,
         top: popup.top,

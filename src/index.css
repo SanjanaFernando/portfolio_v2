@@ -2458,6 +2458,10 @@ footer::before { background: linear-gradient(90deg, transparent, #9bc6e9, #cce3f
     cartoon-float 2.4s ease-in-out 360ms infinite;
 }
 
+.cartoon-hover-popup--leaving img {
+  animation: cartoon-pop-out 180ms ease-in forwards;
+}
+
 @keyframes cartoon-pop-in {
   from { opacity: 0; transform: translateY(16px) scale(0.68) rotate(-5deg); }
   to { opacity: 1; transform: translateY(0) scale(1) rotate(0); }
@@ -2466,6 +2470,10 @@ footer::before { background: linear-gradient(90deg, transparent, #9bc6e9, #cce3f
 @keyframes cartoon-float {
   0%, 100% { transform: translateY(0) rotate(0); }
   50% { transform: translateY(-6px) rotate(1deg); }
+}
+
+@keyframes cartoon-pop-out {
+  to { opacity: 0; transform: translateY(12px) scale(0.9); }
 }
 
 @media (max-width: 600px) {
