@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { ThreeJSBackground } from './components/ThreeJSBackground';
 import { Hero } from './components/Hero';
@@ -15,6 +15,43 @@ import './index.css';
 const App: React.FC = () => {
   const scrollBarRef = useRef<HTMLDivElement>(null);
   const cursorGlowRef = useRef<HTMLDivElement>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isLoaderLeaving, setIsLoaderLeaving] = useState(false);
+
+  useEffect(() => {
+    const startedAt = Date.now();
+    let cancelled = false;
+    let minimumTimeTimer = 0;
+    let fadeTimer = 0;
+
+    const waitForPageAndImages = async () => {
+      if (document.readyState !== 'complete') {
+        await new Promise<void>((resolve) => window.addEventListener('load', () => resolve(), { once: true }));
+      }
+
+      if (cancelled) return;
+
+      // Include below-the-fold images in the initial loading screen too.
+      const images = Array.from(document.images);
+      images.forEach((image) => { image.loading = 'eager'; });
+      await Promise.all(images.map((image) => image.decode().catch(() => undefined)));
+
+      if (cancelled) return;
+      const remainingTime = Math.max(0, 850 - (Date.now() - startedAt));
+      minimumTimeTimer = window.setTimeout(() => {
+        setIsLoaderLeaving(true);
+        fadeTimer = window.setTimeout(() => setIsLoading(false), 450);
+      }, remainingTime);
+    };
+
+    void waitForPageAndImages();
+
+    return () => {
+      cancelled = true;
+      window.clearTimeout(minimumTimeTimer);
+      window.clearTimeout(fadeTimer);
+    };
+  }, []);
 
   useEffect(() => {
     // ── Scroll progress bar ──────────────────────────────────────────────
@@ -110,6 +147,18 @@ const App: React.FC = () => {
 
   return (
     <>
+      {isLoading && (
+        <div className={`page-loader${isLoaderLeaving ? ' page-loader--leaving' : ''}`} role="status" aria-live="polite" aria-label="Loading portfolio">
+          <div className="loader-card">
+            <div className="loader-orbit" aria-hidden="true"><span /><span /><span /></div>
+            <p className="loader-kicker">A LITTLE PATIENCE, PLEASE</p>
+            <h1>Good things take a <span>pixel.</span></h1>
+            <p className="loader-caption">Warming up the portfolio<span className="loader-dots" aria-hidden="true">...</span></p>
+            <div className="loader-track" aria-hidden="true"><span /></div>
+            <p className="loader-footnote">Almost ready to meet you ✦</p>
+          </div>
+        </div>
+      )}
       {/* Scroll progress bar */}
       <div className="scroll-bar" ref={scrollBarRef} />
       {/* Cursor ambient glow */}
