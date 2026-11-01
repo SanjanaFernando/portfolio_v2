@@ -24,7 +24,7 @@ export const Projects: React.FC = () => {
       title: "Hospital Bed Allocation & Management Platform",
       desc: "Developed a full-stack optimization platform combining a Next.js dashboard with a Python backend to deploy a custom Reinforcement Learning agent, successfully automating hospital bed allocation to maximize asset utilization and reduce patient wait times.",
       stack: ["Next.js", "React.js", "Tailwind CSS", "Python", "PyTorch", "DDQN", "NumPy", "Pandas", "SciPy"],
-      image: "/projects/hospitalbedmanagement.png",
+      image: "/projects/hospitalbedmanagement_1_2x.webp",
       sourceUrl: "#"
     },
     {
@@ -32,7 +32,7 @@ export const Projects: React.FC = () => {
       title: "BookTalk – AI Chat Application",
       desc: "Built a Next.js chat application featuring a clean web UI to interact with a Groq-hosted Llama model, leveraging advanced streaming capabilities.",
       stack: ["Next.js", "React.js", "TypeScript", "Tailwind CSS", "Vercel AI SDK", "Groq", "OpenAI SDK"],
-      image: "/projects/booktalk.png",
+      image: "/projects/booktalk_1_2x.webp",
       sourceUrl: "https://github.com/SanjanaFernando/booktalk"
     },
     {
@@ -40,14 +40,14 @@ export const Projects: React.FC = () => {
       title: "BidPilot – AI-Powered RFP & Tender Proposal Platform",
       desc: "Built a LangGraph multi-agent RAG workflow with Python and FastAPI to automate RFP parsing, semantic knowledge retrieval, and compliance-checked bid generation, paired with a Next.js dashboard for end-to-end proposal automation.",
       stack: ["Python", "FastAPI", "LangGraph", "LangChain", "Google Gemini", "Supabase", "PostgreSQL", "pgvector", "PDFPlumber", "Next.js", "TypeScript"],
-      image: "/projects/bidpilot.png",
+      image: "/projects/bidpilot_1_2x.webp",
     },
     {
       tabName: "virtual_mouse.py",
       title: "AI-Powered Hand Gesture Virtual Mouse",
       desc: "Engineered an AI-driven computer vision application that processes real-time webcam streams to track hand landmarks and classify gestures for system control.",
       stack: ["Python", "PyTorch", "MediaPipe", "OpenCV", "Deep Learning"],
-      image: "/projects/gesture_image.png",
+      image: "/projects/gesture_image_1_2x.webp",
       sourceUrl: "https://github.com/Kaveesha20/gesture-mouse"
     },
     {
@@ -55,7 +55,7 @@ export const Projects: React.FC = () => {
       title: "Secure File Drop",
       desc: "Co-engineered a secure full-stack web application featuring a robust authentication system and granular access controls to guarantee protected file transfers, implementing proactive defenses against unauthorized access.",
       stack: ["Cryptography", "Web Security Models", "HTML", "CSS", "Git"],
-      image: "/projects/securefiledrop.png",
+      image: "/projects/securefiledrop_1_2x.webp",
       sourceUrl: "https://github.com/Neshadi/secure-file-drop"
     },
     {
@@ -63,7 +63,7 @@ export const Projects: React.FC = () => {
       title: "E-Chess",
       desc: "Developed a full-stack web platform designed to manage and participate in competitive, real-time chess tournaments.",
       stack: ["MongoDB", "Express.js", "Vite.js", "Node.js", "Chess.js"],
-      image: "/projects/echess.png",
+      image: "/projects/echess_1_2x.webp",
       sourceUrl: "https://github.com/SanjanaFernando/eChess"
     },
     {
@@ -71,7 +71,7 @@ export const Projects: React.FC = () => {
       title: "Fitness Tracking Mobile Application",
       desc: "Created a mobile application for comprehensive fitness tracking, providing users with specialized meal plans, exercise tracking, and workout routines.",
       stack: ["Flutter", "Dart", "Firebase"],
-      image: "/projects/fitnessapp.png",
+      image: "/projects/fitnessapp_1_2x.webp",
       isMobile: true,
       sourceUrl: "https://github.com/SanjanaFernando/FitnessApp_2"
     },
@@ -80,7 +80,7 @@ export const Projects: React.FC = () => {
       title: "Currency Exchange Market",
       desc: "Designed and built a prototype full-stack platform for monitoring and simulating currency exchange transactions.",
       stack: ["MongoDB", "Express.js", "React.js", "Node.js", "Tailwind CSS"],
-      image: "/projects/currencyexchange.png",
+      image: "/projects/currencyexchange_1_2x.webp",
       sourceUrl: "https://github.com/SanjanaFernando/CurrencyExchangeMarket"
     }
   ];

@@ -9,12 +9,12 @@ interface VolunteerItem {
 }
 
 const SLIDES = [
-  { src: '/activities/ieeeextreme.jpg',      caption: 'IEEEXtreme 18.0 Hackathon' },
-  { src: '/activities/eminence.jpg',         caption: 'EMINENCE 4.0' },
-  { src: '/activities/idorayathra.jpg',      caption: 'Project "Idora Yathra"' },
-  { src: '/activities/Mehewara.jpg',         caption: 'Mehewara O/L Seminar Series' },
-  { src: '/activities/National Seminar.jpg', caption: 'National Seminar' },
-  { src: '/activities/leadershipcamp.jpg',   caption: 'Leadership Camp' },
+  { src: '/activities/ieeeextreme_1_1x.webp',      caption: 'IEEEXtreme 18.0 Hackathon' },
+  { src: '/activities/eminence_1_1x.webp',         caption: 'EMINENCE 4.0' },
+  { src: '/activities/idorayathra_1_1x.webp',      caption: 'Project "Idora Yathra"' },
+  { src: '/activities/mehewara_1_1x.webp',         caption: 'Mehewara O/L Seminar Series' },
+  { src: '/activities/national_seminar_1_1x.webp', caption: 'National Seminar' },
+  { src: '/activities/leadershipcamp_1_1x.webp',   caption: 'Leadership Camp' },
 ];
 
 const INTERVAL = 3500;
