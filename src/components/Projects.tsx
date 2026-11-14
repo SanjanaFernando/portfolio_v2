@@ -13,6 +13,7 @@ interface Project {
   image: string;
   isMobile?: boolean;
   sourceUrl?: string;
+  liveUrl?: string;
 }
 
 export const Projects: React.FC = () => {
@@ -25,7 +26,24 @@ export const Projects: React.FC = () => {
       desc: "Developed a full-stack optimization platform combining a Next.js dashboard with a Python backend to deploy a custom Reinforcement Learning agent, successfully automating hospital bed allocation to maximize asset utilization and reduce patient wait times.",
       stack: ["Next.js", "React.js", "Tailwind CSS", "Python", "PyTorch", "DDQN", "NumPy", "Pandas", "SciPy"],
       image: "/projects/hospitalbedmanagement_1_2x.webp",
-      sourceUrl: "#"
+      liveUrl: "https://karapitiya-hospital-management-system.vercel.app/"
+    },
+    {
+      tabName: "bidpilot.py",
+      title: "BidPilot – AI-Powered RFP & Tender Proposal Platform",
+      desc: "Built a LangGraph multi-agent RAG workflow with Python and FastAPI to automate RFP parsing, semantic knowledge retrieval, and compliance-checked bid generation, paired with a Next.js dashboard for end-to-end proposal automation.",
+      stack: ["Python", "FastAPI", "LangGraph", "LangChain", "Google Gemini", "Supabase", "PostgreSQL", "pgvector", "PDFPlumber", "Next.js", "TypeScript"],
+      image: "/projects/bidpilot_1_2x.webp",
+      liveUrl: "https://bid-pilot-ai-demo.vercel.app/"
+    },
+    {
+      tabName: "srilaw_ai.py",
+      title: "SriLaw AI – Sri Lankan Labour Law Information Assistant",
+      desc: "Built a multilingual AI assistant that answers Sri Lankan labour law questions in English, Sinhala, and Tamil, grounding responses in retrieved legal sections and current web sources with citations.",
+      stack: ["Python", "FastAPI", "Google Gemini", "FAISS", "BM25", "PyMuPDF", "HTML", "CSS", "JavaScript"],
+      image: "/projects/srilaw.png",
+      sourceUrl: "https://github.com/SanjanaFernando/nithi-sahaya",
+      liveUrl: "https://srilaw-ai.vercel.app/"
     },
     {
       tabName: "booktalk_chat.tsx",
@@ -34,13 +52,6 @@ export const Projects: React.FC = () => {
       stack: ["Next.js", "React.js", "TypeScript", "Tailwind CSS", "Vercel AI SDK", "Groq", "OpenAI SDK"],
       image: "/projects/booktalk_1_2x.webp",
       sourceUrl: "https://github.com/SanjanaFernando/booktalk"
-    },
-    {
-      tabName: "bidpilot.py",
-      title: "BidPilot – AI-Powered RFP & Tender Proposal Platform",
-      desc: "Built a LangGraph multi-agent RAG workflow with Python and FastAPI to automate RFP parsing, semantic knowledge retrieval, and compliance-checked bid generation, paired with a Next.js dashboard for end-to-end proposal automation.",
-      stack: ["Python", "FastAPI", "LangGraph", "LangChain", "Google Gemini", "Supabase", "PostgreSQL", "pgvector", "PDFPlumber", "Next.js", "TypeScript"],
-      image: "/projects/bidpilot_1_2x.webp",
     },
     {
       tabName: "virtual_mouse.py",
@@ -192,7 +203,14 @@ export const Projects: React.FC = () => {
                     {selectedProject.stack.map((tech) => <span key={tech} className="chip">{tech}</span>)}
                   </div>
                   <div className="proj-links">
-                    <a href={selectedProject.sourceUrl} target="_blank" rel="noopener noreferrer">View source ↗</a>
+                    {selectedProject.liveUrl && (
+                      <a className="proj-live-btn" href={selectedProject.liveUrl} target="_blank" rel="noopener noreferrer">
+                        <span className="proj-live-pulse" />Live ↗
+                      </a>
+                    )}
+                    {selectedProject.sourceUrl && (
+                      <a href={selectedProject.sourceUrl} target="_blank" rel="noopener noreferrer">View source ↗</a>
+                    )}
                   </div>
                 </div>
               </motion.article>
@@ -202,21 +220,33 @@ export const Projects: React.FC = () => {
 
           <div className="project-chapters" aria-label="Project chapters">
             {projects.map((project, index) => (
-              <button
-                id={`project-chapter-${index}`}
-                className={`project-chapter${activeProject === index ? ' is-active' : ''}`}
-                key={project.tabName}
-                type="button"
-                onClick={() => document.getElementById(`project-chapter-${index}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })}
-              >
-                <span className="project-chapter-index">{String(index + 1).padStart(2, '0')}</span>
-                <span className="project-chapter-copy">
-                  <span className="project-chapter-file">{project.tabName}</span>
-                  <span className="project-chapter-title">{project.title}</span>
-                  <span className="project-chapter-summary">{project.desc}</span>
-                </span>
-                <span className="project-chapter-arrow">↗</span>
-              </button>
+              <div className={`project-chapter-item${project.liveUrl ? ' has-live' : ''}`} key={project.tabName}>
+                <button
+                  id={`project-chapter-${index}`}
+                  className={`project-chapter${activeProject === index ? ' is-active' : ''}`}
+                  type="button"
+                  onClick={() => document.getElementById(`project-chapter-${index}`)?.scrollIntoView({ behavior: 'smooth', block: 'center' })}
+                >
+                  <span className="project-chapter-index">{String(index + 1).padStart(2, '0')}</span>
+                  <span className="project-chapter-copy">
+                    <span className="project-chapter-file">{project.tabName}</span>
+                    <span className="project-chapter-title">{project.title}</span>
+                    <span className="project-chapter-summary">{project.desc}</span>
+                  </span>
+                  {!project.liveUrl && <span className="project-chapter-arrow">↗</span>}
+                </button>
+                {project.liveUrl && (
+                  <a
+                    className="proj-live-btn project-chapter-live"
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Open live demo of ${project.title}`}
+                  >
+                    <span className="proj-live-pulse" />Live ↗
+                  </a>
+                )}
+              </div>
             ))}
           </div>
         </div>
