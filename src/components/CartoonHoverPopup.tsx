@@ -2,15 +2,14 @@ import { useEffect, useState, type CSSProperties } from 'react';
 import { createPortal } from 'react-dom';
 
 const CARTOONS = [
-  '/cartoons/hi.webp',
   '/cartoons/fingerright.webp',
   '/cartoons/fingersdown.webp',
   '/cartoons/thinking.webp',
   '/cartoons/thumbsup.webp',
   '/cartoons/clebrate.webp',
 ];
-const SIZES = [190, 210, 180, 220, 198, 216];
-const ANGLES = [-7, 5, -4, 8, -6, 3];
+const SIZES = [210, 180, 220, 198, 216];
+const ANGLES = [5, -4, 8, -6, 3];
 
 interface PopupState {
   container: HTMLElement;
