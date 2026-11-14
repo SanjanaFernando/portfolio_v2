@@ -11,7 +11,7 @@ export const Skills: React.FC = () => {
     { name: "TypeScript", icon: "typescript" },
     { name: "REST APIs", icon: "openapiinitiative" },
     { name: "Tailwind CSS", icon: "tailwindcss" },
-    { name: "Spline", icon: "spline" },
+    { name: "Spline", icon: "/skills/spline.png" },
     { name: "Flutter", icon: "flutter" },
     { name: "Dart", icon: "dart" },
     { name: "Firebase", icon: "firebase" },
@@ -99,7 +99,7 @@ export const Skills: React.FC = () => {
                   <div key={skill.name} className="skill-card">
                     <span className="skill-icon-wrap">
                       {(Array.isArray(skill.icon) ? skill.icon : [skill.icon]).map((icon) => (
-                        <img key={icon} src={`https://cdn.simpleicons.org/${icon}`} alt="" loading="lazy" />
+                        <img key={icon} src={icon.startsWith('/') ? icon : `https://cdn.simpleicons.org/${icon}`} alt="" loading="lazy" />
                       ))}
                     </span>
                     <span className="skill-name">{skill.name}</span>
