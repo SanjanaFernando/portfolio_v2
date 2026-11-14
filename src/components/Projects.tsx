@@ -183,7 +183,6 @@ export const Projects: React.FC = () => {
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.55 }}
                   />
-                  <div className="proj-image-overlay" />
                 </div>
                 <div className="proj-tab"><span className="dot" />{selectedProject.tabName}</div>
                 <div className="proj-body">

@@ -11,6 +11,13 @@ interface ExpItem {
 export const Experience: React.FC = () => {
   const experiences: ExpItem[] = [
     {
+      role: "Full Stack Developer",
+      company: "W3icon (Pvt) Ltd.",
+      period: "Sep 2026 – Present",
+      description: "Converting custom WordPress websites into React and Next.js applications, rebuilding pages with reusable components and modern front-end workflows. Working with React-compatible content management systems, including Payload CMS, to support content-managed Next.js websites.",
+      skills: ["React.js", "Next.js", "TypeScript", "Payload CMS", "WordPress", "Reusable Components"]
+    },
+    {
       role: "Software Engineering Intern",
       company: "BotCalm (PVT) Ltd.",
       period: "May 2025 – Feb 2026",

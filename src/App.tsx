@@ -13,40 +13,45 @@ import { Footer } from './components/Footer';
 import { CartoonHoverPopup } from './components/CartoonHoverPopup';
 import './index.css';
 
+const GREETINGS = [
+  { text: 'Hello', lang: 'en', className: 'english' },
+  { text: 'ආයුබෝවන්', lang: 'si', className: 'sinhala' },
+  { text: 'Bonjour', lang: 'fr', className: 'french' },
+  { text: 'வணக்கம்', lang: 'ta', className: 'tamil' },
+];
+const GREETING_STEP_MS = 380;
+const GREETING_HOLD_MS = 420;
+
 const App: React.FC = () => {
   const scrollBarRef = useRef<HTMLDivElement>(null);
   const cursorGlowRef = useRef<HTMLDivElement>(null);
-  const [isLoading, setIsLoading] = useState(() => sessionStorage.getItem('portfolio-intro-seen') !== 'true');
+  const [isLoading, setIsLoading] = useState(true);
   const [isLoaderLeaving, setIsLoaderLeaving] = useState(false);
   const [greetingIndex, setGreetingIndex] = useState(0);
-  const greetings = [
-    { text: 'Hello', lang: 'en', className: 'english' },
-    { text: 'வணக்கம்', lang: 'ta', className: 'tamil' },
-    { text: 'Bonjour', lang: 'fr', className: 'french' },
-    { text: 'ආයුබෝවන්', lang: 'si', className: 'sinhala' },
-  ];
+  const [greetingsDone, setGreetingsDone] = useState(false);
+  const [pageReady, setPageReady] = useState(false);
 
+  // ── Greeting sequence: English → Sinhala → French → Tamil, once per load ──
   useEffect(() => {
     if (!isLoading) return;
-    const greetingTimer = window.setInterval(() => {
-      setGreetingIndex((index) => (index + 1) % greetings.length);
-    }, 360);
-    return () => window.clearInterval(greetingTimer);
-  }, [isLoading]);
+    const timer = window.setTimeout(() => {
+      if (greetingIndex < GREETINGS.length - 1) {
+        setGreetingIndex((index) => index + 1);
+      } else {
+        setGreetingsDone(true);
+      }
+    }, greetingIndex < GREETINGS.length - 1 ? GREETING_STEP_MS : GREETING_HOLD_MS);
+    return () => window.clearTimeout(timer);
+  }, [greetingIndex, isLoading]);
 
+  // ── Wait for the page and above-the-fold images ───────────────────────
   useEffect(() => {
-    if (!isLoading) return;
-    sessionStorage.setItem('portfolio-intro-seen', 'true');
-    const startedAt = Date.now();
     let cancelled = false;
-    let minimumTimeTimer = 0;
-    let fadeTimer = 0;
 
     const waitForPageAndImages = async () => {
       if (document.readyState !== 'complete') {
         await new Promise<void>((resolve) => window.addEventListener('load', () => resolve(), { once: true }));
       }
-
       if (cancelled) return;
 
       // Keep the initial loader focused on images already needed for the first view.
@@ -54,22 +59,22 @@ const App: React.FC = () => {
       const images = Array.from(document.images).filter((image) => image.loading !== 'lazy');
       await Promise.all(images.map((image) => image.decode().catch(() => undefined)));
 
-      if (cancelled) return;
-      const remainingTime = Math.max(0, 1500 - (Date.now() - startedAt));
-      minimumTimeTimer = window.setTimeout(() => {
-        setIsLoaderLeaving(true);
-        fadeTimer = window.setTimeout(() => setIsLoading(false), 450);
-      }, remainingTime);
+      if (!cancelled) setPageReady(true);
     };
 
     void waitForPageAndImages();
-
     return () => {
       cancelled = true;
-      window.clearTimeout(minimumTimeTimer);
-      window.clearTimeout(fadeTimer);
     };
-  }, [isLoading]);
+  }, []);
+
+  // ── Leave only after every greeting has shown AND the page is ready ───
+  useEffect(() => {
+    if (!greetingsDone || !pageReady) return;
+    setIsLoaderLeaving(true);
+    const fadeTimer = window.setTimeout(() => setIsLoading(false), 450);
+    return () => window.clearTimeout(fadeTimer);
+  }, [greetingsDone, pageReady]);
 
   useEffect(() => {
     // ── Scroll progress bar ──────────────────────────────────────────────
@@ -148,18 +153,18 @@ const App: React.FC = () => {
     <>
       {isLoading && (
         <div className={`page-loader${isLoaderLeaving ? ' page-loader--leaving' : ''}`} role="status" aria-live="off" aria-label="Loading portfolio">
-          <div className="loader-words" aria-label="Hello in English, Tamil, French, and Sinhala">
+          <div className="loader-words" aria-label="Hello in English, Sinhala, French, and Tamil">
             <AnimatePresence mode="wait" initial={false}>
               <motion.h1
-                key={greetings[greetingIndex].lang}
-                className={`loader-word loader-word--${greetings[greetingIndex].className}`}
-                lang={greetings[greetingIndex].lang}
+                key={GREETINGS[greetingIndex].lang}
+                className={`loader-word loader-word--${GREETINGS[greetingIndex].className}`}
+                lang={GREETINGS[greetingIndex].lang}
                 initial={{ y: '100%', opacity: 0 }}
                 animate={{ y: '0%', opacity: 1 }}
                 exit={{ y: '-100%', opacity: 0 }}
                 transition={{ duration: 0.22, ease: [0.65, 0, 0.35, 1] }}
               >
-                {greetings[greetingIndex].text}<span className="loader-word-dot" aria-hidden="true" />
+                {GREETINGS[greetingIndex].text}<span className="loader-word-dot" aria-hidden="true" />
               </motion.h1>
             </AnimatePresence>
           </div>

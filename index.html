@@ -5,6 +5,15 @@
     <link rel="icon" type="image/svg+xml" href="/s_icon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sanjana Fernando</title>
+    <script>
+      // Apply the saved theme before first paint so the loader matches it.
+      try {
+        document.documentElement.dataset.theme =
+          localStorage.getItem('portfolio-theme') === 'dark' ? 'dark' : 'light';
+      } catch (e) {
+        document.documentElement.dataset.theme = 'light';
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
