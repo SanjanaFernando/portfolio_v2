@@ -1,32 +1,54 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 
 export const Skills: React.FC = () => {
   const skills = [
-    "MongoDB",
-    "Express.js",
-    "React.js",
-    "Node.js",
-    "Next.js",
-    "Vite.js",
-    "TypeScript",
-    "REST APIs",
-    "Tailwind CSS",
-    "Spline",
-    "Flutter",
-    "Dart",
-    "Firebase",
-    "Python",
-    "Pandas & NumPy",
-    "Scikit-learn",
-    "PyTorch",
-    "Reinforcement Learning",
-    "Computer Vision",
-    "OpenCV",
-    "MediaPipe",
-    "Git",
-    "Web Security",
-    "Cryptography"
+    { name: "MongoDB", icon: "mongodb" },
+    { name: "Express.js", icon: "express" },
+    { name: "React.js", icon: "react" },
+    { name: "Node.js", icon: "nodedotjs" },
+    { name: "Next.js", icon: "nextdotjs" },
+    { name: "Vite.js", icon: "vite" },
+    { name: "TypeScript", icon: "typescript" },
+    { name: "REST APIs", icon: "openapiinitiative" },
+    { name: "Tailwind CSS", icon: "tailwindcss" },
+    { name: "Spline", icon: "spline" },
+    { name: "Flutter", icon: "flutter" },
+    { name: "Dart", icon: "dart" },
+    { name: "Firebase", icon: "firebase" },
+    { name: "Python", icon: "python" },
+    { name: "Pandas & NumPy", icon: ["pandas", "numpy"] },
+    { name: "Scikit-learn", icon: "scikitlearn" },
+    { name: "PyTorch", icon: "pytorch" },
+    { name: "Reinforcement Learning", icon: "pytorch" },
+    { name: "Computer Vision", icon: "opencv" },
+    { name: "OpenCV", icon: "opencv" },
+    { name: "MediaPipe", icon: "mediapipe" },
+    { name: "Git", icon: "git" },
+    { name: "Web Security", icon: "owasp" },
+    { name: "Cryptography", icon: "letsencrypt" },
   ];
+  const carouselRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const track = carouselRef.current;
+    if (!track || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    let frame = 0;
+    let previousTime = 0;
+    const advance = (time: number) => {
+      if (previousTime) {
+        const firstSet = track.querySelector<HTMLElement>('.skills-carousel-set');
+        const loopWidth = firstSet?.scrollWidth ?? 0;
+        track.scrollLeft += (time - previousTime) * 0.055;
+        if (loopWidth > 0 && track.scrollLeft >= loopWidth) track.scrollLeft -= loopWidth;
+      }
+      previousTime = time;
+      frame = window.requestAnimationFrame(advance);
+    };
+
+    frame = window.requestAnimationFrame(advance);
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
 
   return (
     <section id="skills">
@@ -69,10 +91,26 @@ export const Skills: React.FC = () => {
             <div className="pkg-line">{"}"}</div>
           </div>
         </div>
-        <div className="skills-tags reveal">
-          {skills.map((skill, index) => (
-            <span key={index} className="tag">{skill}</span>
-          ))}
+        <div className="skills-carousel reveal">
+          <div className="skills-carousel-track" ref={carouselRef} aria-label="Skills and technologies">
+            {[0, 1].map((copy) => (
+              <div className="skills-carousel-set" key={copy} aria-hidden={copy === 1}>
+                {skills.map((skill) => (
+                  <div key={skill.name} className="skill-card">
+                    <span className="skill-icon-wrap">
+                      {(Array.isArray(skill.icon) ? skill.icon : [skill.icon]).map((icon) => (
+                        <img key={icon} src={`https://cdn.simpleicons.org/${icon}`} alt="" loading="lazy" />
+                      ))}
+                    </span>
+                    <span className="skill-name">{skill.name}</span>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="skills-tags reveal" aria-label="Skill badges">
+          {skills.map((skill) => <span key={skill.name} className="tag">{skill.name}</span>)}
         </div>
       </div>
     </section>

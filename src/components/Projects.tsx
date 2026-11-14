@@ -115,6 +115,34 @@ export const Projects: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return;
+
+    // Start fetching project screenshots shortly before the section is reached so
+    // changing chapters can reuse the browser cache instead of starting a cold load.
+    const warmProjectImages = () => {
+      projects.forEach(({ image }) => {
+        const preload = new Image();
+        preload.decoding = 'async';
+        preload.src = image;
+      });
+    };
+
+    if (!('IntersectionObserver' in window)) {
+      warmProjectImages();
+      return;
+    }
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      warmProjectImages();
+      observer.disconnect();
+    }, { rootMargin: '1200px 0px' });
+    observer.observe(section);
+    return () => observer.disconnect();
+  }, []);
+
   const selectedProject = projects[activeProject];
 
   return (
@@ -148,6 +176,9 @@ export const Projects: React.FC = () => {
                     src={selectedProject.image}
                     alt={selectedProject.title}
                     className={`proj-image${selectedProject.isMobile ? ' proj-image--mobile' : ''}`}
+                    loading="eager"
+                    fetchPriority="high"
+                    decoding="async"
                     initial={{ scale: 1.06, opacity: 0.6 }}
                     animate={{ scale: 1, opacity: 1 }}
                     transition={{ duration: 0.55 }}

@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { Navbar } from './components/Navbar';
 import { ThreeJSBackground } from './components/ThreeJSBackground';
 import { Hero } from './components/Hero';
@@ -15,10 +16,27 @@ import './index.css';
 const App: React.FC = () => {
   const scrollBarRef = useRef<HTMLDivElement>(null);
   const cursorGlowRef = useRef<HTMLDivElement>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => sessionStorage.getItem('portfolio-intro-seen') !== 'true');
   const [isLoaderLeaving, setIsLoaderLeaving] = useState(false);
+  const [greetingIndex, setGreetingIndex] = useState(0);
+  const greetings = [
+    { text: 'Hello', lang: 'en', className: 'english' },
+    { text: 'வணக்கம்', lang: 'ta', className: 'tamil' },
+    { text: 'Bonjour', lang: 'fr', className: 'french' },
+    { text: 'ආයුබෝවන්', lang: 'si', className: 'sinhala' },
+  ];
 
   useEffect(() => {
+    if (!isLoading) return;
+    const greetingTimer = window.setInterval(() => {
+      setGreetingIndex((index) => (index + 1) % greetings.length);
+    }, 360);
+    return () => window.clearInterval(greetingTimer);
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (!isLoading) return;
+    sessionStorage.setItem('portfolio-intro-seen', 'true');
     const startedAt = Date.now();
     let cancelled = false;
     let minimumTimeTimer = 0;
@@ -31,13 +49,13 @@ const App: React.FC = () => {
 
       if (cancelled) return;
 
-      // Include below-the-fold images in the initial loading screen too.
-      const images = Array.from(document.images);
-      images.forEach((image) => { image.loading = 'eager'; });
+      // Keep the initial loader focused on images already needed for the first view.
+      // Forcing lazy images to eager here delays the whole page on below-the-fold media.
+      const images = Array.from(document.images).filter((image) => image.loading !== 'lazy');
       await Promise.all(images.map((image) => image.decode().catch(() => undefined)));
 
       if (cancelled) return;
-      const remainingTime = Math.max(0, 850 - (Date.now() - startedAt));
+      const remainingTime = Math.max(0, 1500 - (Date.now() - startedAt));
       minimumTimeTimer = window.setTimeout(() => {
         setIsLoaderLeaving(true);
         fadeTimer = window.setTimeout(() => setIsLoading(false), 450);
@@ -51,7 +69,7 @@ const App: React.FC = () => {
       window.clearTimeout(minimumTimeTimer);
       window.clearTimeout(fadeTimer);
     };
-  }, []);
+  }, [isLoading]);
 
   useEffect(() => {
     // ── Scroll progress bar ──────────────────────────────────────────────
@@ -92,24 +110,6 @@ const App: React.FC = () => {
     revealEls.forEach((el) => observer.observe(el));
 
     // ── Skills tag staggered wave ─────────────────────────────────────────
-    const tagsObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const tags = entry.target.querySelectorAll<HTMLElement>('.tag');
-            tags.forEach((tag, i) => {
-              setTimeout(() => tag.classList.add('in'), i * 55);
-            });
-            tagsObserver.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-
-    const skillsSection = document.querySelector('.skills-tags');
-    if (skillsSection) tagsObserver.observe(skillsSection);
-
     // ── Hero terminal loaded glow ─────────────────────────────────────────
     const heroTermWindow = document.querySelector('.hero .term-window');
     if (heroTermWindow) {
@@ -140,7 +140,6 @@ const App: React.FC = () => {
       window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
       observer.disconnect();
-      tagsObserver.disconnect();
       cardObserver.disconnect();
     };
   }, []);
@@ -148,14 +147,21 @@ const App: React.FC = () => {
   return (
     <>
       {isLoading && (
-        <div className={`page-loader${isLoaderLeaving ? ' page-loader--leaving' : ''}`} role="status" aria-live="polite" aria-label="Loading portfolio">
-          <div className="loader-card">
-            <div className="loader-orbit" aria-hidden="true"><span /><span /><span /></div>
-            <p className="loader-kicker">A LITTLE PATIENCE, PLEASE</p>
-            <h1>Good things take a <span>pixel.</span></h1>
-            <p className="loader-caption">Warming up the portfolio<span className="loader-dots" aria-hidden="true">...</span></p>
-            <div className="loader-track" aria-hidden="true"><span /></div>
-            <p className="loader-footnote">Almost ready to meet you ✦</p>
+        <div className={`page-loader${isLoaderLeaving ? ' page-loader--leaving' : ''}`} role="status" aria-live="off" aria-label="Loading portfolio">
+          <div className="loader-words" aria-label="Hello in English, Tamil, French, and Sinhala">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.h1
+                key={greetings[greetingIndex].lang}
+                className={`loader-word loader-word--${greetings[greetingIndex].className}`}
+                lang={greetings[greetingIndex].lang}
+                initial={{ y: '100%', opacity: 0 }}
+                animate={{ y: '0%', opacity: 1 }}
+                exit={{ y: '-100%', opacity: 0 }}
+                transition={{ duration: 0.22, ease: [0.65, 0, 0.35, 1] }}
+              >
+                {greetings[greetingIndex].text}<span className="loader-word-dot" aria-hidden="true" />
+              </motion.h1>
+            </AnimatePresence>
           </div>
         </div>
       )}
